@@ -1,22 +1,17 @@
-Search users:
- - Looking specifically for Max Analytics to review more information
- - Looking for player evaluation software -- potenially coming from another resource
+ - CTA: Get Started vs. Request Demo
+ - Data ownership / access
 
-Does your software apply to my organization?
- - Type of sport
- - Type of evaluations
+Ideas:
+- Limit the number of user accounts
+- Limit the number of evaluations
+- Restrict user permissions
+- Accountability tracking (i.e. this user changed this score)
 
-Does your software solve a need that my organization has?
- - I have software, but it's difficult to work with
- - I have software, but it's expensive
- - I have software, but it's not saving me time
+ - Switch out player development and time saving
+ - Data driven development
+ 	- Designing your programming to your players' needs
+ 	- Individual needs
 
- - I don't have software and want to provide a more professional experience to the parents
- - I don't have software and want to get more insight
- - I don't have software and want to start saving time
-
-How can I trust your software?
-
-What exactly do I get?
-
-
+  - Sport Engine
+ 	-> Two blog posts
+ - Look at the marketing email we sent out last year see why didn't it pick up more people
