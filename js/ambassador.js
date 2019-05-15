@@ -78,6 +78,13 @@ $(window).on('load', function() {
     }, 1250, 'easeInOutExpo');
     event.preventDefault();
   });
+  $('.smooth-scroll').on('click', function(event) {
+    var $anchor = $(this);
+    $('html, body').stop().animate({
+      scrollTop: ($($anchor.attr('href')).offset().top - 50)
+    }, 1250, 'easeInOutExpo');
+    event.preventDefault();
+  });
 
 
   /*====================================================*/
@@ -121,6 +128,31 @@ $(window).on('load', function() {
         }
       }
     }
+  });
+
+  $('.request_demo').on('click', () => {
+    Intercom('showNewMessage', 'I\'m interested in seeing a demo of the Max Analytics software.');
+    ga('send', 'event', 'CTA', 'Click', 'Type', 'Demo');
+  });
+
+  $('.lets_talk').on('click', () => {
+    Intercom('showNewMessage');
+    ga('send', 'event', 'CTA', 'Click', 'Type', 'Talk');
+  });
+
+  $('.choose_plan_evaluation').on('click', () => {
+    Intercom('showNewMessage', 'I\'m interested in signing up for the Evaluation plan of the Max Analytics software.');
+    ga('send', 'event', 'Plan', 'Click', 'Select', 'Custom');
+  });
+
+  $('.choose_plan_dev').on('click', () => {
+    Intercom('showNewMessage', 'I\'m interested in signing up for the Development plan of the Max Analytics software.');
+    ga('send', 'event', 'Plan', 'Click', 'Select', 'Custom');
+  });
+
+  $('.choose_plan_custom').on('click', () => {
+    Intercom('showNewMessage', 'I\'m interested in discussing the Custom plan of the Max Analytics software.');
+    ga('send', 'event', 'Plan', 'Click', 'Select', 'Custom');
   });
 }) (jQuery);
 

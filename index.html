@@ -60,6 +60,17 @@
   <!-- CSS Ambassador Core Styles -->
   <link rel="stylesheet" href="css/styles.css">
 
+  <!-- Google Analytics -->
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-140233518-1', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <!-- End Google Analytics -->
 </head>
 
 
@@ -119,12 +130,15 @@
         <li class="nav-item">
           <a href="#mea-contact" class="nav-link">Contact</a>
         </li>
+        <li class="nav-item">
+          <a href="/about" class="nav-link">About</a>
+        </li>
       </ul>
       <!-- End Links -->
 
       <!-- Nav Right Item -->
       <div class="site-header--right d-flex justify-content-center align-items-center">
-        <a href="create-account.html" class="btn btn-lg btn-outline">
+        <a class="btn btn-lg btn-outline request_demo">
           Request Demo
         </a>
         <span class="mx-3">or</span>
@@ -149,29 +163,34 @@
             <div class="col-md-5">
               <!-- Info -->
               <h1 class="intro-lead-title mb-3">Improve Player Development for Minor League Hockey</h1>
-              <p class="lead">Max Analytics helps you tailor player development to individual needs and ensures that teams are balanced for meaningful competition throughout the season.</p>
+              <p class="lead">Max Analytics provides data driven feedback to help your athletes, parents, coaches, and program administrators focus on meaningful long term player development.</p>
               <!-- End Info -->
 
               <!-- Call to Action -->
               <div class="intro-cta-group d-flex justify-content-center justify-content-sm-start">
-                <a href="" class="btn btn-xl btn-primary">Get started</a>
 
-                <a href="https://www.youtube.com/watch?v=9I-Y6VQ6tyI"
-                   class="btn btn-xl btn-has-icon video-trigger js-video-modal-trigger">
-                  Request demo
+                <a href="https://www.youtube.com/watch?v=WvMRdWTtUjc"
+                   class="btn btn-xl btn-primary btn-has-icon video-trigger js-video-modal-trigger">Learn more
+                  <span class="btn-icon">
+                    <i class="fas fa-play"></i>
+                  </span>
+                </a>
+
+
+
+                <a class="lets_talk btn btn-xl btn-has-icon video-trigger">
+                  Let's talk
                   <span class="btn-icon">
                     <i class="fas fa-user"></i>
                   </span>
-                </a> 
+                </a>
               </div>
               <!-- End Call to Action -->
             </div>
 
-            <div class="col-md-6 col-lg-5 ml-auto">
+            <div class="col-md-6 col-lg-6 ml-auto">
               <!-- Hero Image -->
-              <div class="intro-img">
-                <img src="holder.js/500x500" class="img-fluid" alt="Image">
-              </div>
+              <img src="images/player.png" class="hero_image" />
               <!-- End Hero Image -->
             </div>
           </div>
@@ -201,60 +220,64 @@
           <img class="m-3" src="/images/companies/fgnha.png" alt="Fort Garry North Hockey Association">
           <img class="m-3" src="/images/companies/somha.jpg" alt="Seven Oaks Minor Hockey Association">
           <img class="m-3" src="/images/companies/idcmh.jfif" alt="Ile Des Chenes Minor Hockey">
-          <img class="m-3" src="/images/companies/svmha.jfif" alt="St. Vital Minor Hockey Association">
+          <img class="m-3" src="/images/companies/svmha.jfif" alt="St. Vital Minor Hockey Association"><br />
           <img class="m-3" src="/images/companies/cis.jfif" alt="Clipper Ice Sports">
           <img class="m-3" src="/images/companies/rrmha.jfif" alt="Rat River Minor Hockey Association">
           <img class="m-3" src="/images/companies/lsmha.jfif" alt="LSMHA">
-          <img class="m-3" src="/images/companies/wsmha.png" alt="Winnipeg Storm">
+          <img class="m-3" src="/images/companies/wsmha.jpeg" alt="Winnipeg Storm">
+          <img class="m-3" src="/images/companies/sjr.png" alt="SJR">
         </div>
         <!-- End Logo Images -->
       </div>
     </div>
   </div>
 </section>
+
+<secton class="hc-quote">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>“All players need to continuously perfect and advance their individual skills and tactics. The result will contribute to team success both in practice and in games. The coach must understand how these skills and tactics are executed for efficient practices and maximum development of the players”</h3>
+        <h3>~ Hockey Canada</h3>
+      </div>
+    </div>
+  </div>
+</secton>
 <!-- End Client Logos -->
 <section class="section-spacer" id="features">
   <div class="container">
     <div class="row mb-5 mb-md-0">
-      <div class="col-md-7">
+      <div class="col-md-5 mr-auto">
         <div class="content">
-          <div class="row">
-            <div class="col-md-3 mb-3  mb-md-0">
-              <span class="h5 text-muted">Achieve AAA</span>
-              <h2 class="mt-0">Standards</h2>
-            </div>
-            <div class="col-md-9">
-              <!--Info-->
-              <header class="section-header">
-                <h2 class="font-weight-light">Keep players engaged</h2>
-                <p class="lead">Max Analytics helps you give them the attention they need as individual athletes.</p>
-              </header>
-              <!--End Info-->
-              <div class="feature-boxes m-tb-40">
-                <div class="feature-box mb-5">
-                  <h2 class="feature-box--title">Personalize feedback</h2>
-                  <small class="feature-box--text">With performance communication</small>
-                  <p>Identify and share a clear understanding of areas for improvement as players progress.</p>
-                </div>
-                <div class="feature-box mb-5">
-                  <h2 class="feature-box--title">Drive growth</h2>
-                  <small class="feature-box--text">With a clear action plan</small>
-                  <p>Provide practice plans and learning resources based on the challenges each player is currently facing.</p>
-                </div>
-                <div class="feature-box mb-5">
-                  <h2 class="feature-box--title">Ensure fairness</h2>
-                  <small class="feature-box--text">With grading accuracy and transparency</small>
-                  <p>Gain deeper insight into player performance to build teams balanced teams, enabling meaningful competition.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+            <span class="h5 text-muted">Achieve AAA</span>
+            <h2 class="mt-0">Standards</h2>
+
+            <img class="img-fluid img-card mt-5" src="images/report-card-white.png  " alt="Image">
         </div>
       </div>
-      <div class="col-md-5">
-        <!--Feature Image-->
-        <img class="img-fluid" src="holder.js/500x500" alt="Image">
-        <!--End Feature Image-->
+      <div class="col-md-6"><!--Info-->
+        <header class="section-header">
+          <h2 class="font-weight-light">Keep players and coaches engaged</h2>
+          <p class="lead">Use data-driven solutions to drive real player development and improve athlete retention.</p>
+        </header>
+        <!--End Info-->
+        <div class="feature-boxes m-tb-40">
+          <div class="feature-box mb-5">
+            <h2 class="feature-box--title">Personalize feedback</h2>
+            <small class="feature-box--text">With performance communication</small>
+            <p>Identify and share a clear understanding of areas for improvement as players progress.</p>
+          </div>
+          <div class="feature-box mb-5">
+            <h2 class="feature-box--title">Drive growth</h2>
+            <small class="feature-box--text">With a clear action plan</small>
+            <p>Provide practice plans and learning resources based on the challenges each player is currently facing.</p>
+          </div>
+          <div class="feature-box mb-5">
+            <h2 class="feature-box--title">Ensure fairness</h2>
+            <small class="feature-box--text">With grading accuracy and transparency</small>
+            <p>Gain deeper insight into player performance to build teams balanced teams, enabling meaningful competition.</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row mt-5">
@@ -273,7 +296,7 @@
               <i class="fas fa-users"></i>
             </span>
           <h3>Collaborative</h3>
-          <p>Max Analytics helps keep your staff in sync throughout the entire lifecycle of your hockey evaluations.</p>
+          <p>Enables to meet the need of 1-100 team members. Everyone has permissions suited to their use.</p>
         </div>
       </div>
       <div class="col-md-3">
@@ -299,16 +322,16 @@
 </section>
 
 <!-- ========== OVERVIEW SECTION ========== -->
-<section class="section-spacer u-bg-gradient--primary u-text--light" id="overview">
+<section class="process-section section-spacer u-bg-gradient--primary u-text--light" id="overview">
   <div class="container">
     <div class="row align-items-start">
       <div class="col-md-5 mr-auto">
-        <header class="mb-5">
+        <header class="mb-5 mt-5">
           <h1>Process overview</h1>
           <p class="lead">Max Analytics offers robust tools to handle all your needs on- and off-ice.</p>
         </header>
         <!--Feature Image-->
-        <img src="holder.js/500x450" class="img-fluid mb-5 mb-md-0" alt="Image">
+        <img src="images/check-in-tall.png" class="process-img img-fluid mb-5 mb-md-0" alt="Image">
         <!--End Feature Image-->
       </div>
 
@@ -346,6 +369,37 @@
   </div>
 </section>
 <!-- ========== END OVERVIEW SECTION ========== -->
+
+<section class="section-spacer" id="testimonials">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="testimonial">
+          <p>When asked how easy it was to create the data file from HCR "It took 5 min. I did it while getting ready for work!"</p>
+          <span>Rydell Lasko<br />President, SVMHA</span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="testimonial">
+          <p>I really liked having the opportunity to see the report card. It eliminates that 'in the dark' feeling that we've had in previous tryout evaluations.</p>
+          <span>Brenda<br />Hockey Mom</span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="testimonial">
+          <p>The new process is a big improvement over past years. We appreciate the move towards a more objective and transparent evaluations process.</p>
+          <span>Tom<br />Hockey Dad</span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="testimonial">
+          <p>We now know that we should invest in power skating instead of a general hockey school.</p>
+          <span>Kurt<br />Hockey Dad</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 <!-- ========== INTEGRATION SECTION ========== -->
@@ -420,7 +474,7 @@
     </div>
 
 
-    <div class="tab-content mb-5" role="tablist">
+    <div class="tab-content" role="tablist">
       <!--Pricing Tables-->
       <div class="tab-pane show active" id="pricing-monthly" role="tabpanel" aria-labelledby="pricing-monthly">
         <div class="tab-inner">
@@ -430,10 +484,10 @@
             <div class="col-12 col-md-4">
               <div class="pricing-tier">
                 <div class="plan-detail">
-                  <span class="plan-title">Silver</span>
+                  <span class="plan-title">Evaluation</span>
                   <div class="plan-price">
                     <span class="plan-currency-symbol">$</span>
-                    <span class="plan-cost">4</span>
+                    <span class="plan-cost">10</span>
                     <span class="plan-period">/player/year</span>
                   </div>
                 </div>
@@ -449,6 +503,11 @@
                           <i class="fas fa-info"></i>
                         </span>
                     </li>
+                    <li class="plan-item">Evaluation drills
+                      <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Use our pre-set up drills, vetted by the Max Analytics team">
+                          <i class="fas fa-info"></i>
+                        </span>
+                    </li>
                     <li class="plan-item">On-ice tools
                       <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Scoring and check-in tools to facilitate evaluations">
                           <i class="fas fa-info"></i>
@@ -459,10 +518,10 @@
                           <i class="fas fa-info"></i>
                         </span>
                     </li>
-                    <li class="plan-item">Progress reports & practice plans</li>
+                    <li class="plan-item">24/7 Customer Service</li>
                   </ul>
                 </div>
-                <a href="" class="btn btn-primary">Choose</a>
+                <a class="choose_plan_evaluation btn btn-primary">Choose</a>
               </div>
             </div>
             <!--End Pricing Table Single-->
@@ -471,34 +530,29 @@
             <div class="col-12 col-md-4">
               <div class="pricing-tier active">
                 <div class="plan-detail">
-                  <span class="plan-title">Gold</span>
+                  <span class="plan-title">Development</span>
                   <div class="plan-price">
                     <span class="plan-currency-symbol">$</span>
-                    <span class="plan-cost">10</span>
+                    <span class="plan-cost">20</span>
                     <span class="plan-period">/player/year</span>
                   </div>
                 </div>
                 <div class="plan-features">
                   <ul class="list-unstyled">
-                    <li class="plan-item">Custom user permissions
-                      <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Restrict staff from gaining access to areas they shouldn't be">
+                    <li class="plan-item plan-item--plus">Evaluation Features</li>
+                    <li class="plan-item">Player progress reports
+                      <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Provide parents and players progress feedback in the form of a report card">
                           <i class="fas fa-info"></i>
                         </span>
                     </li>
-                    <li class="plan-item">Max hockey drills
-                      <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Use our pre-set up drills, vetted by the Max Analytics team">
+                    <li class="plan-item">Practice plans
+                      <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Provide tailored practice plans to the players post-evaluation">
                           <i class="fas fa-info"></i>
                         </span>
                     </li>
-                    <li class="plan-item">Advanced reporting
-                      <span class="helper-tooltip" data-toggle="tooltip" data-placement="top" title="Drill down into the scoring details. Run cross-association reports.">
-                          <i class="fas fa-info"></i>
-                        </span>
-                    </li>
-                    <li class="plan-item plan-item--plus">Silver Features</li>
                   </ul>
                 </div>
-                <a href="" class="btn btn-primary">Choose</a>
+                <a class="choose_plan_dev btn btn-primary">Choose</a>
               </div>
             </div>
 
@@ -506,20 +560,20 @@
             <div class="col-12 col-md-4">
               <div class="pricing-tier">
                 <div class="plan-detail">
-                  <span class="plan-title">Platinum</span>
+                  <span class="plan-title">Custom</span>
                   <div class="plan-price">
                     <span class="plan-cost">Varies</span>
                   </div>
                 </div>
                 <div class="plan-features">
                   <ul class="list-unstyled">
+                    <li class="plan-item plan-item--plus">Development Features</li>
                     <li class="plan-item">Custom reporting</li>
                     <li class="plan-item">Custom branding</li>
                     <li class="plan-item">Dedicated Customer Success</li>
-                    <li class="plan-item plan-item--plus">Gold Features</li>
                   </ul>
                 </div>
-                <a href="" class="btn btn-primary">Contact sales</a>
+                <a class="choose_plan_custom btn btn-primary">Contact sales</a>
               </div>
             </div>
             <!--End Pricing Table Single-->
@@ -556,6 +610,13 @@
     <div class="row">
       <div class="col-md-6 mx-auto">
         <ul class="list-unstyled faq-list">
+          <!--FAQ Item-->
+          <li class="mb-3">
+            <h3>How do I get set up?</h3>
+            <p>We'll start with a call to understand and align with the unique needs of your evaluations. Once we've defined the scope of the evaluation then we will guide you through the set up and execution of your evaluation from beginning to end.</p>
+          </li>
+          <!--End FAQ Item-->
+
           <!--FAQ Item-->
           <li class="mb-3">
             <h3>Can I use my own evaluation format?</h3>
@@ -613,21 +674,21 @@
     <div class="row">
       <div class="col-12 col-md-8 mx-auto">
         <!--Contact Form-->
-        <form class="contact-form p-md-5">
+        <form class="contact-form p-md-5" method="POST" action="https://formspree.io/matt@maxea.ca">
           <div class="row">
             <div class="col-12 col-md-6">
               <!--Input-->
               <div class="form-group">
-                <label for="form-input">Name</label>
-                <input type="text" id="form-input" class="form-control" placeholder="Your full name">
+                <label for="form-input">Name*</label>
+                <input name="name" type="text" id="form-input" class="form-control" placeholder="Your full name" required>
               </div>
               <!--End Input-->
             </div>
             <div class="col-12 col-md-6">
               <!--Input-->
               <div class="form-group">
-                <label for="form-email">Email</label>
-                <input type="text" id="form-email" class="form-control" placeholder="Your Email">
+                <label for="form-email">Email*</label>
+                <input name="email" type="text" id="form-email" class="form-control" placeholder="Your Email" required>
               </div>
               <!--End Input-->
             </div>
@@ -637,7 +698,7 @@
               <!--Input-->
               <div class="form-group">
                 <label for="form-phone">Mobile No.</label>
-                <input type="text" id="form-phone" class="form-control" placeholder="Your mobile number">
+                <input name="phone" type="text" id="form-phone" class="form-control" placeholder="Your mobile number">
               </div>
               <!--End Input-->
             </div>
@@ -645,7 +706,7 @@
               <!--Input-->
               <div class="form-group">
                 <label for="form-subject">Subject</label>
-                <input type="text" id="form-subject" class="form-control" placeholder="Subject">
+                <input name="subject" type="text" id="form-subject" class="form-control" placeholder="Subject">
               </div>
               <!--End Input-->
             </div>
@@ -653,13 +714,13 @@
           <!--Textarea-->
           <div class="form-group">
             <label for="form-message">Message</label>
-            <textarea id="form-message" class="form-control" rows="5"
-                      placeholder="Please let us know why you’re reaching out and what you may need help with. The more detail the better!"></textarea>
+            <textarea name="mssage" id="form-message" class="form-control" rows="5"
+                      placeholder="Please let us know why you're reaching out and what you may need help with. The more detail the better!"></textarea>
           </div>
           <!--End Textarea-->
 
           <!--Submit Button-->
-          <button class="btn btn-primary btn-xl w-100">Send Massages</button>
+          <button class="btn btn-primary btn-xl w-100" type="submit ">Send Massages</button>
           <!--End Submit Button -->
         </form>
         <!--End Form-->
@@ -700,11 +761,14 @@
 <script src="js/ambassador.js"></script>
 
 <script>
+  const APP_ID = 'a7zxhqtq';
+
   window.intercomSettings = {
-    app_id: "a7zxhqtq"
+    app_id: APP_ID,
+    custom_launcher_selector: '.open_intercom'
   };
 </script>
-<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/a7zxhqtq';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
-</body>
+<script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',w.intercomSettings);}else{var d=document;var i=function(){i.c(arguments);};i.q=[];i.c=function(args){i.q.push(args);};w.Intercom=i;var l=function(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/' + APP_ID;var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})();</script>
 
+</body>
 </html>

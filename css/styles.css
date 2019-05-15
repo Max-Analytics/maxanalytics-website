@@ -1748,7 +1748,7 @@ INTROS AND HEROS
   position: relative;
   background: #c8f7c5;
   width: 100%;
-  padding: 100px 0;
+  padding: 0 0 100px;
   overflow: hidden;
 }
 
@@ -1768,14 +1768,17 @@ INTROS AND HEROS
   border-color: rgba(47, 91, 231, 0.2);
   color: #637282;
 }
-
+.intro-cta-group .video-trigger.btn-primary {
+  color: #fff;
+  background: #2f5be7 !important;
+  border: #2f5be7 !important;
+}
+.intro-cta-group .video-trigger.btn-primary .btn-icon {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
 .intro-lead-title {
   line-height: 1.2;
-}
-
-.intro-img {
-  width: 100%;
-  margin-top: 2rem;
 }
 
 .img-shape {
@@ -1827,6 +1830,9 @@ INTROS AND HEROS
   box-shadow: 0 10px 20px rgba(47, 91, 231, 0.1);
   border-radius: 3px;
   margin-bottom: 2rem;
+}
+.pricing-tier .list-unstyled {
+  height: 194px;
 }
 .pricing-tier .plan-title {
   font-size: 2rem;
@@ -2432,4 +2438,80 @@ FAQ CARDS
   body {
     font-size: 0.875rem !important;
   }
+}
+
+.hc-quote {
+  margin-top: 60px;
+  display: block;
+  margin-bottom: -40px;
+}
+
+.hc-quote h3 {
+  font-weight: normal;
+}
+
+.process-img {
+  height: 640px;
+  width: 640px;
+  position: relative;
+  max-width: none;
+  left: -202px;
+}
+
+.process-section {
+  padding: 0 !important;
+}
+
+.img-card {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+#pricing {
+  padding: 70px 0;
+}
+
+#pricing header {
+  margin-bottom: 30px;
+}
+
+.hero_image {
+  opacity: 0.8;
+  width: 900px;
+  position: relative;
+  top: -50px;
+  left: -100px;
+}
+
+#testimonials {
+  background: #052bA5;
+  padding: 28px 10px 40px;
+  box-shadow: 0 -5px 10px #111;
+}
+
+.testimonial p {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18px;
+}
+
+.testimonial span {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+
+.about-us .team {
+  margin-top: 3rem;
+}
+
+.about-us img {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  width: 200px;
+  height: 200px;
+  margin-bottom: 24px;
+}
+
+.about-us .summary p {
+  font-size: 18px;
+  line-height: 28px;
 }
