@@ -69,10 +69,10 @@ a:focus, a:active, button:focus, button:active {
 }
 
 a {
-  color: #2f5be7;
+  color: #67823a;
 }
 a:hover {
-  color: #1743cc;
+  color: #57722a;
 }
 
 figure {
@@ -312,12 +312,12 @@ footer .social-links .list-inline-item i {
 }
 
 .u-bg-gradient--primary {
-  background-image: -webkit-linear-gradient(270deg, #153bb5 -10%, #2f5be7 100%);
-  background-image: linear-gradient(180deg, #153bb5 -10%, #2f5be7 100%);
+  background-image: -webkit-linear-gradient(270deg, #373a36 -10%, #373a36 100%);
+  background-image: linear-gradient(180deg, #373a36 -10%, #373a36 100%);
 }
 
 .u-bg--primary {
-  background: #2f5be7;
+  background: #373a36;
 }
 
 .u-bg--red {
@@ -507,7 +507,7 @@ Custom Checkbox
   justify-content: center;
   border-radius: 50%;
   background: white;
-  color: #2f5be7;
+  color: #c4d600;
   -webkit-box-shadow: 0 10px 15px rgba(47, 91, 231, 0.1);
   box-shadow: 0 10px 15px rgba(47, 91, 231, 0.1);
 }
@@ -532,7 +532,7 @@ Custom Checkbox
 
 .list-process div {
   border-top: 2px dashed;
-  border-color: #c8f7c5 !important;
+  border-color: #c4d600 !important;
   margin:0; padding: 30px;
   counter-increment: section;
   position: relative;
@@ -549,7 +549,7 @@ Custom Checkbox
   padding: 10px;
   height: 20px;
   width: 20px;
-  background-color: #c8f7c5;
+  background-color: #c4d600;
   box-sizing: content-box;
   text-align:center;
   color: #333;
@@ -565,7 +565,7 @@ Custom Checkbox
   padding: 10px;
   height: 20px;
   width: 20px;
-  background-color: #c8f7c5;
+  background-color: #c4d600;
   box-sizing: content-box;
   text-align:center;
   color: #333;
@@ -1414,13 +1414,14 @@ BUTTONS
   box-shadow: none;
 }
 .btn-primary {
-  background: #2f5be7;
-  border-color: #2f5be7;
+  background: #c4d600;
+  border-color: #c4d600;
   color: #fff;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  border-color: #1a4ae2;
-  background: #1a4ae2;
+  border-color: #b4c60a !important;
+  background: #b4c60a !important;
+  box-shadow: none !important;
 }
 
 .btn + .btn {
@@ -1428,8 +1429,8 @@ BUTTONS
 }
 
 .btn-outline {
-  color: #2f5be7;
-  border: 2px solid #2f5be7;
+  color: #c4d600;
+  border: 2px solid #c4d600;
   padding-top: 17px;
   padding-bottom: 13px;
 }
@@ -1451,10 +1452,10 @@ BUTTONS
 
 .btn-link {
   padding: 0;
-  color: rgba(47, 91, 231, 0.8);
+  color: rgba(114, 135, 56, 0.8);
 }
 .btn-link:hover {
-  color: #2f5be7;
+  color: rgba(114, 135, 56, 1);
   text-decoration: none;
 }
 
@@ -1746,7 +1747,7 @@ INTROS AND HEROS
 */
 .intro {
   position: relative;
-  background: #c8f7c5;
+  background: #E4FDBA;
   width: 100%;
   padding: 0 0 100px;
   overflow: hidden;
@@ -1770,8 +1771,8 @@ INTROS AND HEROS
 }
 .intro-cta-group .video-trigger.btn-primary {
   color: #fff;
-  background: #2f5be7 !important;
-  border: #2f5be7 !important;
+  background: #373a36 !important;
+  border: #373a36 !important;
 }
 .intro-cta-group .video-trigger.btn-primary .btn-icon {
   color: #fff;
@@ -1849,7 +1850,7 @@ INTROS AND HEROS
 }
 
 .pricing-tier.active {
-  background: #2f5be7;
+  background: #67823a;
   color: white;
 }
 .pricing-tier.active .plan-detail .plan-period {
@@ -1865,12 +1866,15 @@ INTROS AND HEROS
   border-color: rgba(255, 255, 255, 0.2);
 }
 .pricing-tier.active .btn {
-  background: #c8f7c5;
+  background: #fff !important;
   color: #33475c;
   border-color: transparent !important;
 }
 .pricing-tier.active .btn:hover {
   background: #1cd8d8;
+}
+.pricing-tier .btn {
+  background: #E4FDBA !important;
 }
 
 .plan-features {
@@ -2073,7 +2077,7 @@ CAROUSEL AND SLIDERS
 }
 
 .bg-half--cyan:after {
-  background: #c8f7c5;
+  background: #E4FDBA;
 }
 
 .bg-pattern-dots--light {
@@ -2453,9 +2457,14 @@ FAQ CARDS
 .process-img {
   height: 640px;
   width: 640px;
-  position: relative;
+  position: absolute;
   max-width: none;
-  left: -202px;
+  right: 0;
+}
+
+.process-wrapper {
+  min-height: 849px;
+  position: relative;
 }
 
 .process-section {
@@ -2464,6 +2473,7 @@ FAQ CARDS
 
 .img-card {
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  margin-bottom: 60px;
 }
 
 #pricing {
@@ -2483,7 +2493,7 @@ FAQ CARDS
 }
 
 #testimonials {
-  background: #052bA5;
+  background: #101820;
   padding: 28px 10px 40px;
   box-shadow: 0 -5px 10px #111;
 }
@@ -2514,4 +2524,10 @@ FAQ CARDS
 .about-us .summary p {
   font-size: 18px;
   line-height: 28px;
+}
+
+@media (max-width: 767.98px) {
+  .process-img {
+
+  }
 }
