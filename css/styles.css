@@ -360,15 +360,21 @@ label {
 .input-field-lg {
   padding: 15px;
 }
-
+.text-logo {
+  margin-bottom: 16px;
+  height: 60px;
+}
 .custom-select {
-  width: auto;
+  width: 100%;
   border-radius: 2px;
   background: white;
   padding: 0 !important;
   position: relative;
   cursor: pointer;
   pointer-events: fill;
+  height: 48px;
+  margin-bottom: 16px;
+  border: 1px solid #eaeaea;
 }
 .custom-select select {
   padding-left: 10px;
@@ -2133,6 +2139,11 @@ CAROUSEL AND SLIDERS
 /*------------------------------------
   Integration Cards
 ------------------------------------*/
+.help-card {
+  margin-top: 24px;
+  min-height: 205px !important;
+}
+
 .integration-card {
   display: block;
   color: #33475c;
@@ -2530,4 +2541,10 @@ FAQ CARDS
   .process-img {
 
   }
+}
+
+.contact-iframe {
+  width: 100%;
+  border: none;
+  height: 700px;
 }
