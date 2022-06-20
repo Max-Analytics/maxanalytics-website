@@ -131,32 +131,27 @@ $(window).on('load', function() {
   });
 
   $('.request_demo').on('click', () => {
-    ze90
-    zE.activate();
+    window.$zopim.livechat.bubble.show();
     ga('send', 'event', 'CTA', 'Click', 'Type', 'Demo');
   });
 
   $('.lets_talk').on('click', () => {
-    ze90
-    zE.activate();
+    window.$zopim.livechat.bubble.show();
     ga('send', 'event', 'CTA', 'Click', 'Type', 'Talk');
   });
 
   $('.choose_plan_evaluation').on('click', () => {
-    ze90
-    zE.activate();
+    window.$zopim.livechat.bubble.show();
     ga('send', 'event', 'Plan', 'Click', 'Select', 'Custom');
   });
 
   $('.choose_plan_dev').on('click', () => {
-    ze90
-    zE.activate();
+    window.$zopim.livechat.bubble.show();
     ga('send', 'event', 'Plan', 'Click', 'Select', 'Custom');
   });
 
   $('.choose_plan_custom').on('click', () => {
-    ze90
-    zE.activate();
+    window.$zopim.livechat.bubble.show();
     ga('send', 'event', 'Plan', 'Click', 'Select', 'Custom');
   });
 }) (jQuery);
