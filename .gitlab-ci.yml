@@ -3,6 +3,6 @@ production:
     type: deploy
     script:
     - pip install awscli
-    - aws s3 cp ./ s3://maxea.ca/ --recursive --exclude "*" --include "*.html,*.js,*.png,*.svg,*.jpg,*.jpeg,*.eot,*.ttf,*.woff,*.woff2,*.css,*.css.map,*.ico"
+    - aws s3 cp ./ s3://Max Analytics.ca/ --recursive --exclude "*" --include "*.html,*.js,*.png,*.svg,*.jpg,*.jpeg,*.eot,*.ttf,*.woff,*.woff2,*.css,*.css.map,*.ico"
     only:
     - tags

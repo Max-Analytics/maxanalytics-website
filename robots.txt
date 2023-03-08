@@ -1,0 +1,2 @@
+User-agent: *
+Disallow: /investors/index.html
