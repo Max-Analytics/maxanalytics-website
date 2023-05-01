@@ -1839,7 +1839,7 @@ INTROS AND HEROS
   margin-bottom: 2rem;
 }
 .pricing-tier .list-unstyled {
-  height: 194px;
+  height: 360px;
 }
 .pricing-tier .plan-title {
   font-size: 2rem;
@@ -2199,8 +2199,8 @@ CAROUSEL AND SLIDERS
   padding: 20px 0;
 }
 
-/* 
-FAQ CARDS 
+/*
+FAQ CARDS
 */
 .faq-card {
   margin-bottom: 2rem;
