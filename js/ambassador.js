@@ -135,6 +135,11 @@ $(window).on('load', function() {
     ga('send', 'event', 'CTA', 'Click', 'Type', 'Demo');
   });
 
+  $('.get_help').on('click', () => {
+    zE.activate();
+    ga('send', 'event', 'CTA', 'Click', 'Type', 'Help');
+  });
+
   $('.lets_talk').on('click', () => {
     zE.activate();
     ga('send', 'event', 'CTA', 'Click', 'Type', 'Talk');
