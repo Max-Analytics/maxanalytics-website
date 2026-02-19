@@ -1,0 +1,28 @@
+.site-footer {
+  text-align: left;
+  padding: 28px 18px;
+  font-size: 14px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+  color: rgba(99,114,130,0.9);
+}
+.site-footer__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+.site-footer__logo {
+  display: block;
+  height: 2.5rem;
+  width: auto;
+  margin: 0 0 12px;
+}
+.site-footer p { margin: 0; }
+.site-footer a { color: #637282; text-decoration: none; }
+.site-footer a:hover { color: #33475c; text-decoration: underline; }
+
+/* Dark theme (home page) */
+.site-footer--dark {
+  border-top-color: rgba(255,255,255,0.10);
+  color: rgba(255,255,255,0.50);
+}
+.site-footer--dark a { color: rgba(255,255,255,0.65); }
+.site-footer--dark a:hover { color: rgba(255,255,255,0.90); }
