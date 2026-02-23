@@ -1,0 +1,11 @@
+{
+  "hosting": {
+    "site": "max-static",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
