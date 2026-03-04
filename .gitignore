@@ -2,3 +2,4 @@
 .idea/usage.statistics.xml
 .idea/tasks.xml
 .firebase/*.cache
+.DS_Store
