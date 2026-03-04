@@ -9,15 +9,14 @@
   /* ---- Detect current page ---- */
   var path = window.location.pathname;
   var page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
-  var isHome = (path === '/' || page === 'index.html');
   var isHelpCentre = path.indexOf('support-help-centre') !== -1;
+  var isHome = (path === '/' || page === 'index.html') && !isHelpCentre;
 
   /* ---- Build link list ---- */
   var links = [
     { label: 'Home',       href: isHome ? '#home'     : base + 'index.html',               page: 'index.html' },
-    { label: 'Benefits',   href: isHome ? '#builtfor'  : base + 'index.html#builtfor',      page: null },
-    { label: 'Process',    href: isHome ? '#mdc'       : base + 'index.html#mdc',            page: null },
-    { label: 'How It Works', href: base + 'how-it-works.html',                               page: 'how-it-works.html' },
+    { label: 'Benefits',   href: base + 'benefits.html',                                     page: 'benefits.html' },
+    { label: 'Process',    href: base + 'process.html',                                      page: 'process.html'  },
     { label: 'Pricing',    href: base + 'pricing.html',                                      page: 'pricing.html' },
     { label: 'FAQs',       href: base + 'faqs.html',                                         page: 'faqs.html' },
     { label: 'Evaluators', href: base + 'evaluators.html',                                   page: 'evaluators.html' },
@@ -135,7 +134,7 @@
 
     /* ---- Scroll-spy for home page sections ---- */
     if (isHome) {
-      var sectionMap = { home: 'Home', builtfor: 'Benefits', mdc: 'Process' };
+      var sectionMap = { home: 'Home' };
       var sectionIds = Object.keys(sectionMap);
       var navLinks = document.querySelectorAll('.site-nav__link');
       var visibleSections = {};
