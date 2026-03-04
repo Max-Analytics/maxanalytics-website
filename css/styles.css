@@ -2548,6 +2548,10 @@ FAQ CARDS
   .process-wrapper {
     min-height: auto;
   }
+
+  .list-process {
+    padding: 0 1.25rem;
+  }
 }
 
 .contact-iframe {

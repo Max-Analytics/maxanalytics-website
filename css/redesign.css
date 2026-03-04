@@ -283,45 +283,34 @@
   
   /* Tabs row */
   .role-tabs{
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 14px;
-    align-items: stretch;
-    margin: 34px auto 16px;
-    max-width: 1040px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px auto 28px;
   }
-  
+
   .role-tab{
     appearance: none;
-    border: 1px solid rgba(255,255,255,0.14);
-    border-bottom: 2px solid rgba(255,255,255,0.12);
-    background: rgba(7, 22, 43, 0.35);
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(7, 22, 43, 0.28);
     color: rgba(255,255,255,0.90);
-    border-radius: 10px;
-    padding: 14px 12px;
-  
-    display: grid;
-    place-items: center;
-    gap: 10px;
-  
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.25);
-  
-    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+    transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease, background 160ms ease;
   }
-  
-  .role-tab__icon{ font-size: 26px; opacity: 0.95; }
-  .role-tab__label{ font-weight: 800; font-size: 18px; }
-  
+
   .role-tab:hover{
     transform: translateY(-1px);
-    box-shadow: 0 14px 34px rgba(0,0,0,0.32);
+    box-shadow: 0 12px 26px rgba(0,0,0,0.25);
   }
-  
+
   .role-tab.is-active{
-    border-color: color-mix(in srgb, var(--role-accent) 65%, rgba(255,255,255,0.12));
-    outline: 2px solid color-mix(in srgb, var(--role-accent) 70%, transparent);
-    background: color-mix(in srgb, rgba(7, 22, 43, 0.38) 70%, var(--role-accent));
+    background: rgba(7, 22, 43, 0.40);
+    border-color: rgba(184,208,0,0.45);
+    border-width: 3px;
   }
   
   /* Panel wrapper and pointer triangle */
@@ -593,8 +582,21 @@
     opacity: 0.92;
     max-width: 420px;
   }
-  
-  
+
+
+  /* Fix: override sticky to fixed on home page for reliable cross-browser navbar */
+  body > .site-nav {
+    position: fixed;
+    width: 100%;
+  }
+
+  /* Compensate: fixed elements leave normal flow, so push content down by navbar height */
+  /* Navbar height = min-height(45px) + padding-top(14px) + padding-bottom(14px) = 73px */
+  main#home {
+    margin-top: 73px;
+  }
+
+
   /* ---------- Responsive ---------- */
   @media (max-width: 980px){
     :root{
@@ -608,8 +610,6 @@
       --cta-1-bg-size: cover;
     }
 
-    .role-tabs{ grid-template-columns: repeat(2, 1fr); }
-  
     /* MDC stacks */
     .mdc__grid{ grid-template-columns: 1fr; }
   }
@@ -648,6 +648,5 @@
   }
   
   @media (max-width: 620px){
-    .role-tabs{ grid-template-columns: 1fr; }
     .role-panelwrap::before{ left: 50%; }
   }  
