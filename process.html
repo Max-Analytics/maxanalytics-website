@@ -23,6 +23,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/ionicons.min.css">
     <link rel="stylesheet" href="css/fontawesome-all.min.css">
@@ -33,6 +34,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/cost-calculator.css">
 
     <script src="js/gtag.js"></script>
     <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=cb016587-14d8-45bd-82b9-3a69ded6091b"></script>
@@ -84,6 +86,116 @@
     </section>
     <!-- End Process Overview -->
 
+    <!-- Cost Savings Calculator -->
+    <section id="cost-calculator">
+      <div class="cc-container">
+        <h2 class="section-heading">Calculate Your Cost Savings</h2>
+        <p class="section-intro">
+          Enter a few details about your association below. We'll estimate how many volunteer hours your current evaluation process is likely generating &mdash; and show you how many of those Max handles automatically.
+        </p>
+
+        <div class="worksheet-controls">
+          <div class="mode-toggle" role="tablist" aria-label="Input mode">
+            <button class="mode-toggle__btn active" role="tab" aria-selected="true" data-mode="simple">Simple</button>
+            <button class="mode-toggle__btn" role="tab" aria-selected="false" data-mode="refined">By Age Group</button>
+          </div>
+
+          <div class="simple-inputs" id="simple-inputs">
+            <div class="form-group">
+              <label for="total-players">Total players being evaluated</label>
+              <input type="number" id="total-players" min="30" max="1000" value="200">
+              <div class="form-group__helper">Include all players across all age groups</div>
+            </div>
+            <div class="form-group">
+              <label for="sessions-simple">Evaluation sessions per player</label>
+              <input type="number" id="sessions-simple" min="1" max="8" value="3">
+              <div class="form-group__helper">Typically 2&ndash;4 sessions per player</div>
+            </div>
+          </div>
+
+          <div class="refined-inputs" id="refined-inputs">
+            <table class="age-group-table" id="age-group-table">
+              <thead>
+                <tr>
+                  <th>Age Group</th>
+                  <th>Number of Players</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="age-group-tbody"></tbody>
+            </table>
+            <button class="btn-add-row" id="btn-add-row" type="button">+ Add Age Group</button>
+            <div class="form-group" style="margin-top:1.25rem">
+              <label for="sessions-refined">Evaluation sessions per player (applies to all groups)</label>
+              <input type="number" id="sessions-refined" min="1" max="8" value="3">
+              <div class="form-group__helper">Typically 2&ndash;4 sessions per player</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="results-section">
+          <div class="results-table-wrapper">
+            <table class="results-table" id="results-table">
+              <thead>
+                <tr>
+                  <th>Task</th>
+                  <th>Your Process (est. range)</th>
+                  <th>With Max</th>
+                  <th>Hours Saved</th>
+                </tr>
+              </thead>
+              <tbody id="results-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="missed-opportunities">
+            <h3 class="missed-opportunities__heading">Things most associations aren't counting &mdash; or aren't doing at all</h3>
+            <div class="missed-grid">
+              <div class="missed-card">
+                <div class="missed-card__title">Individual player report cards</div>
+                <p>Most associations produce no individual feedback after evaluations. For 200 players at roughly 10 minutes each, that's 30+ hours of work &mdash; which is why it doesn't get done. Players and families leave the process with no idea how they performed.</p>
+                <div class="missed-card__max">Max generates a personalized report card for every player automatically &mdash; no manual production required.</div>
+              </div>
+              <div class="missed-card">
+                <div class="missed-card__title">Auditing results and catching errors</div>
+                <p>Due to time pressure, most associations do little or no formal review of evaluation scores before placements are made. Errors in paper-based score sheets &mdash; missed entries, transposed numbers, wrong groups &mdash; often go undetected until a parent raises a concern.</p>
+                <div class="missed-card__max">Max flags incomplete entries, outlier scores, and data gaps automatically during the evaluation sessions themselves. By the time the last session ends, the audit is already done.</div>
+              </div>
+              <div class="missed-card">
+                <div class="missed-card__title">Post-placement parent appeals</div>
+                <p>Placement decisions trigger parent emails and calls that boards rarely budget for in advance. This is already captured in the table above &mdash; but many boards are surprised by how much time it consumes, particularly when placements can't be defended with clean data.</p>
+                <div class="missed-card__max">Max's auditable scores give every placement a paper trail, significantly reducing the volume and intensity of appeals.</div>
+              </div>
+              <div class="missed-card">
+                <div class="missed-card__title">Development briefings for coaches</div>
+                <p>The performance data collected during evaluations rarely reaches the coaches who could use it. No formal handoff means coaches start the season without a baseline &mdash; and the insights from evaluation are lost.</p>
+                <div class="missed-card__max">Max preserves evaluation data in a format coaches can actually act on, so the work done during evaluations carries forward into the season.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="callout-boxes">
+            <div class="callout-box">
+              <div class="callout-box__label">You're spending an estimated</div>
+              <div class="callout-box__number" id="callout-yours">&mdash; hrs</div>
+              <div class="callout-box__suffix">on evaluation administration.<br>Max handles approximately <strong id="callout-saved-inline">&mdash;</strong> of them.</div>
+            </div>
+            <div class="callout-box">
+              <div class="callout-box__label">That's roughly</div>
+              <div class="callout-box__number" id="callout-days">&mdash; days</div>
+              <div class="callout-box__suffix">of volunteer work returned<br>to your community each fall.</div>
+            </div>
+          </div>
+
+          <div class="worksheet-footer">
+            <p>Estimates shown as ranges based on patterns we observe across associations of similar size &mdash; from well-organized manual processes to less structured ones. Where does your process fall? Want a more precise assessment? We're happy to walk through it with you.</p>
+            <a href="contact.html" class="btn-primary">Book a Walk-Through</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Cost Savings Calculator -->
+
 </div>
 
 <!-- JS Global Compulsory -->
@@ -100,6 +212,7 @@
 <!-- JS Ambassador -->
 <script src="js/ambassador.js"></script>
 
+<script src="js/cost-calculator.js"></script>
 <script src="js/footer.js"></script>
 </body>
 </html>
