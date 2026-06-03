@@ -293,4 +293,19 @@
       root.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
+
+  // Board-questions accordion: animate max-height so each panel expands to its
+  // own content height; toggles aria-expanded for screen readers.
+  var pageRoot = document.getElementById('cost-calculator-page');
+  if (pageRoot) {
+    pageRoot.querySelectorAll('.cc-accordion-header').forEach(function(header) {
+      header.addEventListener('click', function() {
+        var item = header.parentElement;
+        var body = item.querySelector('.cc-accordion-body');
+        var isOpen = item.classList.toggle('open');
+        header.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        body.style.maxHeight = isOpen ? body.scrollHeight + 'px' : '0';
+      });
+    });
+  }
 })();

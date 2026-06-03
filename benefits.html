@@ -33,6 +33,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/cost-calculator.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
     <script src="js/gtag.js"></script>
     <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=cb016587-14d8-45bd-82b9-3a69ded6091b"></script>
@@ -56,6 +59,391 @@
       </div>
     </section>
     <!-- End Hockey Canada Quote -->
+
+    <!-- ==========================================================
+         COST CALCULATOR PAGE — wraps the worksheet and all of the
+         surrounding marketing content from the original standalone
+         cost_calculator repo. Scoped under #cost-calculator-page so
+         its globally-named classes never collide with Bootstrap.
+         ========================================================== -->
+    <div id="cost-calculator-page">
+
+      <!-- Pain points -->
+      <section class="cc-pain-points">
+        <div class="cc-container">
+          <h2 class="cc-section-heading">Does This Sound Familiar?</h2>
+          <p class="cc-section-intro">
+            These are the patterns we see most often when we talk to minor hockey associations about their evaluation process. How many apply to you?
+          </p>
+          <div class="cc-pain-grid">
+            <div class="cc-pain-card">
+              <div class="cc-pain-card__icon" aria-hidden="true">✉️</div>
+              <h3>Weeks of Email Back-and-Forth</h3>
+              <p>Your evaluations coordinator spends weeks each fall managing a constant stream of emails &mdash; ice time notifications, session assignments, schedule changes, and the replies that follow each one. It's one of the most time-consuming parts of the process, and most of it is invisible to the rest of the board.</p>
+            </div>
+            <div class="cc-pain-card">
+              <div class="cc-pain-card__icon" aria-hidden="true">🛡️</div>
+              <h3>Placements You Can't Defend</h3>
+              <p>When a parent challenges a placement, the board has to reconstruct a decision made from paper sheets, evaluator memory, and a spreadsheet built under pressure. There's often no clean answer &mdash; and that absence of a defensible process is what erodes trust, long after evaluation season ends.</p>
+            </div>
+            <div class="cc-pain-card">
+              <div class="cc-pain-card__icon" aria-hidden="true">⌨️</div>
+              <h3>Manual Score Entry</h3>
+              <p>Evaluators record scores on paper during sessions. Someone transcribes them into a spreadsheet afterward &mdash; under time pressure, across multiple sheets, from multiple evaluators. A transposed number or a missed row doesn't announce itself. It just becomes part of the results.</p>
+            </div>
+            <div class="cc-pain-card">
+              <div class="cc-pain-card__icon" aria-hidden="true">📍</div>
+              <h3>Players at the Wrong Level</h3>
+              <p>Some players end up placed at a level that doesn't reflect their ability. Without structured, comparative data across sessions, it's difficult to catch before announcements go out &mdash; and nearly impossible to correct once the season is underway and teams have formed around those decisions.</p>
+            </div>
+            <div class="cc-pain-card">
+              <div class="cc-pain-card__icon" aria-hidden="true">🏒</div>
+              <h3>Inconsistent Goalie Evaluations</h3>
+              <p>Goalie assessment typically relies on one or two evaluators, a general impression, and no structured scoring rubric. There's rarely a way to compare one goalie's session to another's, or to calibrate across evaluators. The result is placements that are hard to explain and easy to challenge.</p>
+            </div>
+            <div class="cc-pain-card">
+              <div class="cc-pain-card__icon" aria-hidden="true">📬</div>
+              <h3>No Feedback to Players or Parents</h3>
+              <p>A player spends weeks going through the evaluation process &mdash; and then hears nothing about how they performed. No acknowledgment of what they did well. No direction on what to work on. For families, it's frustrating. For players trying to develop, it's a missed opportunity that the season rarely makes up for.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Data callout -->
+      <section class="cc-data-callout">
+        <div class="cc-container">
+          <div class="cc-data-callout__inner">
+            <div class="cc-data-callout__stat">
+              <div class="cc-data-callout__number">94</div>
+              <div class="cc-data-callout__label">skill observations<br>per player assessment</div>
+            </div>
+            <div class="cc-data-callout__text">
+              <p>A typical evaluation block runs four hours &mdash; four one-hour sessions &mdash; during which Max captures an average of <strong>94 individual skill observations per player</strong>. That's not a rounding error or a best-case scenario. That's the standard.</p>
+              <p>Attempting to collect, record, and manage that volume of data on paper or in a spreadsheet doesn't just slow things down &mdash; it forces a choice: either collect far fewer observations (sacrificing accuracy) or collect the same number and accept that errors and omissions are inevitable.</p>
+              <p>Clean data is the foundation of accurate player placement. Max provides both.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Board questions accordion -->
+      <section class="cc-board-questions" id="board-questions">
+        <div class="cc-container">
+          <h2 class="cc-section-heading">Questions Your Board Should Be Asking</h2>
+          <p class="cc-section-intro">
+            Your evaluation process is one of the most consequential things your association does each fall. These are the questions that help you measure whether it's working &mdash; for your volunteers, your families, and most importantly, your players.
+          </p>
+          <div class="cc-accordion" role="list">
+
+            <div class="cc-accordion-item" role="listitem">
+              <button class="cc-accordion-header" aria-expanded="false">
+                <span>Is there an easier, more efficient way for our volunteers and administrators to do what they need to do?</span>
+                <svg class="cc-accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.58 10 7.3 5.7a1 1 0 0 1 0-1.4z"/></svg>
+              </button>
+              <div class="cc-accordion-body" role="region">
+                <div class="cc-accordion-body__inner">
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--hear">What We Commonly Hear</div>
+                    <p><em>"It's a lot of work, but our people are committed."</em> Volunteer dedication is real &mdash; but commitment doesn't make the hours sustainable. Most boards have never actually counted what the process costs in time.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--reality">Industry Reality</div>
+                    <p>When associations add up communication, scheduling, check-in, data entry, auditing, and result distribution, total administrative hours routinely exceed 100&ndash;150 hours per evaluation cycle. Those are hours taken from the rest of the season &mdash; and from the people you're counting on to show up again next year.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--max">How Max Changes This</div>
+                    <p>Max automates the administrative burden at every stage of the process. Scroll down to the <a href="#cost-calculator">Volunteer Hours Worksheet</a> to calculate your association's estimated total &mdash; and see how many of those hours Max handles automatically.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cc-accordion-item" role="listitem">
+              <button class="cc-accordion-header" aria-expanded="false">
+                <span>Are the parents and players getting the transparency they deserve?</span>
+                <svg class="cc-accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.58 10 7.3 5.7a1 1 0 0 1 0-1.4z"/></svg>
+              </button>
+              <div class="cc-accordion-body" role="region">
+                <div class="cc-accordion-body__inner">
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--hear">What We Commonly Hear</div>
+                    <p><em>"We post the team rosters and send out the results."</em> Announcing outcomes isn't the same as explaining them. When families don't understand how decisions were made, trust erodes &mdash; and complaints follow.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--reality">Industry Reality</div>
+                    <p>Transparency means helping every family understand what was assessed, how their player performed, and why placements were made. Without structured scoring and documented criteria, even well-run evaluations are difficult to defend &mdash; and families have no way to accept outcomes they can't see.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--max">How Max Changes This</div>
+                    <p>Max automatically generates a personalized report card for every evaluated player &mdash; no manual production required. Placements are backed by auditable scores, not judgment calls. See a <a href="assets/report-card/example-gold-report-card.html" target="_blank" rel="noopener noreferrer">sample Gold Report Card here</a>.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cc-accordion-item" role="listitem">
+              <button class="cc-accordion-header" aria-expanded="false">
+                <span>Can we get more out of our evaluations so that the process is about the players and their development?</span>
+                <svg class="cc-accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.58 10 7.3 5.7a1 1 0 0 1 0-1.4z"/></svg>
+              </button>
+              <div class="cc-accordion-body" role="region">
+                <div class="cc-accordion-body__inner">
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--hear">What We Commonly Hear</div>
+                    <p><em>"We evaluate to place players on teams &mdash; that's what it's for."</em> Team placement is the immediate goal, but it's not the only value the process can deliver. Most associations leave significant upside on the table.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--reality">Industry Reality</div>
+                    <p>Evaluations are one of the few structured, multi-session assessment moments in a player's year. The data collected &mdash; across skating, puck skills, compete level, and positional play &mdash; could do far more than determine team placement. It could give players meaningful feedback, inform coaching priorities, and signal where development attention is needed most.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--max">How Max Changes This</div>
+                    <p>Max captures structured, multi-dimensional player data that goes beyond a placement score. Every player leaves evaluations with a report card they can act on &mdash; and coaches start the season with a baseline they can build from.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cc-accordion-item" role="listitem">
+              <button class="cc-accordion-header" aria-expanded="false">
+                <span>Can we increase accuracy in our results to ensure that players are placed at appropriate levels?</span>
+                <svg class="cc-accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.58 10 7.3 5.7a1 1 0 0 1 0-1.4z"/></svg>
+              </button>
+              <div class="cc-accordion-body" role="region">
+                <div class="cc-accordion-body__inner">
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--hear">What We Commonly Hear</div>
+                    <p><em>"We think it went well &mdash; we didn't hear many complaints."</em> Most boards use complaint volume as a proxy for accuracy. But families who don't understand the evaluation process rarely know how to raise a concern effectively &mdash; and misplaced players often just quietly disengage.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--reality">Industry Reality</div>
+                    <p>In associations using manual evaluation processes, misplacement rates of 10&ndash;20% are not unusual. Paper score sheets get lost or misread. Evaluator bias goes unchecked. Without clean comparative data and a structured audit trail, there's no reliable way to know how accurate your results really were.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--max">How Max Changes This</div>
+                    <p>Max's algorithmic ranking, bias-calibration tools, and real-time scoring produce player standings that can be reviewed, audited, and defended. Misplacement rates drop significantly &mdash; and when questions arise, the answers are in the data.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cc-accordion-item" role="listitem">
+              <button class="cc-accordion-header" aria-expanded="false">
+                <span>Are we using the information collected during evaluations to set the foundation for player development and team success?</span>
+                <svg class="cc-accordion-chevron" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M7.3 4.3a1 1 0 0 1 1.4 0l5 5a1 1 0 0 1 0 1.4l-5 5a1 1 0 0 1-1.4-1.4L11.58 10 7.3 5.7a1 1 0 0 1 0-1.4z"/></svg>
+              </button>
+              <div class="cc-accordion-body" role="region">
+                <div class="cc-accordion-body__inner">
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--hear">What We Commonly Hear</div>
+                    <p><em>"Once teams are set, we move on to the season."</em> The evaluation is treated as a gate &mdash; pass through it, and it's done. But the data collected represents something more valuable than a placement decision.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--reality">Industry Reality</div>
+                    <p>Most associations collect rich performance data during evaluations and then file it away. Coaches start the season with no baseline. Players have no reference point for their own development. The evaluation becomes a sorting exercise rather than the investment in player development it could be.</p>
+                  </div>
+                  <div class="cc-accordion-layer">
+                    <div class="cc-accordion-layer__label cc-accordion-layer__label--max">How Max Changes This</div>
+                    <p>Max preserves evaluation data in a format coaches and players can actually use. Development priorities are visible from day one of the season. Players carry their evaluation results forward &mdash; and the process becomes the starting line for a year of growth, not just a mechanism for sorting teams.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Cost Savings Calculator (worksheet) -->
+      <section id="cost-calculator">
+        <div class="cc-container">
+          <h2 class="section-heading">Calculate Your Cost Savings</h2>
+          <p class="section-intro">
+            Enter a few details about your association below. We'll estimate how many volunteer hours your current evaluation process is likely generating &mdash; and show you how many of those Max handles automatically.
+          </p>
+
+          <div class="worksheet-controls">
+            <div class="mode-toggle" role="tablist" aria-label="Input mode">
+              <button class="mode-toggle__btn active" role="tab" aria-selected="true" data-mode="simple">Simple</button>
+              <button class="mode-toggle__btn" role="tab" aria-selected="false" data-mode="refined">By Age Group</button>
+            </div>
+
+            <div class="simple-inputs" id="simple-inputs">
+              <div class="form-group">
+                <label for="total-players">Total players being evaluated</label>
+                <input type="number" id="total-players" min="30" max="1000" value="200">
+                <div class="form-group__helper">Include all players across all age groups</div>
+              </div>
+              <div class="form-group">
+                <label for="sessions-simple">Evaluation sessions per player</label>
+                <input type="number" id="sessions-simple" min="1" max="8" value="3">
+                <div class="form-group__helper">Typically 2&ndash;4 sessions per player</div>
+              </div>
+            </div>
+
+            <div class="refined-inputs" id="refined-inputs">
+              <table class="age-group-table" id="age-group-table">
+                <thead>
+                  <tr>
+                    <th>Age Group</th>
+                    <th>Number of Players</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="age-group-tbody"></tbody>
+              </table>
+              <button class="btn-add-row" id="btn-add-row" type="button">+ Add Age Group</button>
+              <div class="form-group" style="margin-top:1.25rem">
+                <label for="sessions-refined">Evaluation sessions per player (applies to all groups)</label>
+                <input type="number" id="sessions-refined" min="1" max="8" value="3">
+                <div class="form-group__helper">Typically 2&ndash;4 sessions per player</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="results-section">
+            <div class="results-table-wrapper">
+              <table class="results-table" id="results-table">
+                <thead>
+                  <tr>
+                    <th>Task</th>
+                    <th>Your Process (est. range)</th>
+                    <th>With Max</th>
+                    <th>Hours Saved</th>
+                  </tr>
+                </thead>
+                <tbody id="results-tbody"></tbody>
+              </table>
+            </div>
+
+            <div class="missed-opportunities">
+              <h3 class="missed-opportunities__heading">Things most associations aren't counting &mdash; or aren't doing at all</h3>
+              <div class="missed-grid">
+                <div class="missed-card">
+                  <div class="missed-card__title">Individual player report cards</div>
+                  <p>Most associations produce no individual feedback after evaluations. For 200 players at roughly 10 minutes each, that's 30+ hours of work &mdash; which is why it doesn't get done. Players and families leave the process with no idea how they performed.</p>
+                  <div class="missed-card__max">Max generates a personalized report card for every player automatically &mdash; no manual production required.</div>
+                </div>
+                <div class="missed-card">
+                  <div class="missed-card__title">Auditing results and catching errors</div>
+                  <p>Due to time pressure, most associations do little or no formal review of evaluation scores before placements are made. Errors in paper-based score sheets &mdash; missed entries, transposed numbers, wrong groups &mdash; often go undetected until a parent raises a concern.</p>
+                  <div class="missed-card__max">Max flags incomplete entries, outlier scores, and data gaps automatically during the evaluation sessions themselves. By the time the last session ends, the audit is already done.</div>
+                </div>
+                <div class="missed-card">
+                  <div class="missed-card__title">Post-placement parent appeals</div>
+                  <p>Placement decisions trigger parent emails and calls that boards rarely budget for in advance. This is already captured in the table above &mdash; but many boards are surprised by how much time it consumes, particularly when placements can't be defended with clean data.</p>
+                  <div class="missed-card__max">Max's auditable scores give every placement a paper trail, significantly reducing the volume and intensity of appeals.</div>
+                </div>
+                <div class="missed-card">
+                  <div class="missed-card__title">Development briefings for coaches</div>
+                  <p>The performance data collected during evaluations rarely reaches the coaches who could use it. No formal handoff means coaches start the season without a baseline &mdash; and the insights from evaluation are lost.</p>
+                  <div class="missed-card__max">Max preserves evaluation data in a format coaches can actually act on, so the work done during evaluations carries forward into the season.</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout-boxes">
+              <div class="callout-box">
+                <div class="callout-box__label">You're spending an estimated</div>
+                <div class="callout-box__number" id="callout-yours">&mdash; hrs</div>
+                <div class="callout-box__suffix">on evaluation administration.<br>Max handles approximately <strong id="callout-saved-inline">&mdash;</strong> of them.</div>
+              </div>
+              <div class="callout-box">
+                <div class="callout-box__label">That's roughly</div>
+                <div class="callout-box__number" id="callout-days">&mdash; days</div>
+                <div class="callout-box__suffix">of volunteer work returned<br>to your community each fall.</div>
+              </div>
+            </div>
+
+            <div class="worksheet-footer">
+              <p>Estimates shown as ranges based on patterns we observe across associations of similar size &mdash; from well-organized manual processes to less structured ones. Where does your process fall? Want a more precise assessment? We're happy to walk through it with you.</p>
+              <a href="contact.html" class="btn-primary">Book a Walk-Through</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- What Max Actually Does -->
+      <section class="cc-features">
+        <div class="cc-container">
+          <h2 class="cc-section-heading">What Max Actually Does</h2>
+          <p class="cc-section-intro">
+            Every task in the worksheet above corresponds to something Max handles &mdash; automatically, accurately, and without adding work for your volunteers. Here's how.
+          </p>
+          <div class="cc-features-grid">
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">✉️</div>
+              <div>
+                <h3>Automated Player Communication</h3>
+                <p>Max handles all parent and player communication about ice times, session assignments, and schedule updates &mdash; automatically, throughout the evaluation period. No email queue for your admin coordinator.</p>
+              </div>
+            </div>
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">📅</div>
+              <div>
+                <h3>Smart Session Scheduling</h3>
+                <p>Players are automatically assigned to the right evaluation sessions based on division, availability, and session capacity. Changes are handled without manual re-coordination.</p>
+              </div>
+            </div>
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">📱</div>
+              <div>
+                <h3>Digital Check-In</h3>
+                <p>Evaluators and administrators check players in digitally on-device. No printer, no clipboard, no lineup confusion at the rink door.</p>
+              </div>
+            </div>
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">⚡</div>
+              <div>
+                <h3>Near Real-Time Scoring</h3>
+                <p>Evaluators score in the app during sessions. Results update within approximately 10 minutes &mdash; no waiting for a data entry volunteer to catch up.</p>
+              </div>
+            </div>
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">🏆</div>
+              <div>
+                <h3>Instant Player Rankings</h3>
+                <p>When evaluation sessions conclude, player standings are calculated automatically. No director needs to spend a weekend building a spreadsheet.</p>
+              </div>
+            </div>
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">📄</div>
+              <div>
+                <h3>Personalized Player Report Cards</h3>
+                <p>Every evaluated player receives a detailed, personalized report card &mdash; automatically generated, automatically distributed. No manual production.</p>
+              </div>
+            </div>
+            <div class="cc-feature-item">
+              <div class="cc-feature-item__icon" aria-hidden="true">🎯</div>
+              <div>
+                <h3>Bias-Calibrated Results</h3>
+                <p>Max uses algorithmic tools to detect and reduce evaluator bias and inconsistency &mdash; so placements reflect player performance, not the tendencies of whoever happened to be scoring that session.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cc-report-card-callout">
+            <p>See what a player receives after evaluation &rarr;</p>
+            <a href="assets/report-card/example-gold-report-card.html" target="_blank" rel="noopener noreferrer" class="cc-btn-outline">View Sample Gold Report Card</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="cc-cta">
+        <div class="cc-container">
+          <h2 class="cc-section-heading">Ready to Talk About Your Evaluation Process?</h2>
+          <p>
+            We're not here to tell you your process is broken. We're here to help you figure out where the opportunities are &mdash; and whether Max is the right fit for your association. A 30-minute conversation is usually all it takes.
+          </p>
+          <a href="contact.html" class="cc-btn-dark">Book a Demo</a>
+          <a href="index.html" class="cc-cta__secondary">Learn more about Max Analytics &rarr;</a>
+        </div>
+      </section>
+
+    </div>
+    <!-- End Cost Calculator Page -->
 
     <!-- 3. Feature Value Props -->
     <section class="section-spacer" id="features">
@@ -274,6 +662,7 @@
 <!-- JS Ambassador -->
 <script src="js/ambassador.js"></script>
 
+<script src="js/cost-calculator.js"></script>
 <script src="js/footer.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
-/* Cost-savings calculator — scoped to #cost-calculator so it never collides
-   with Bootstrap / styles.css used elsewhere on the marketing site. */
+/* Cost-savings calculator and surrounding marketing content — scoped to
+   #cost-calculator-page (outer wrapper) and #cost-calculator (worksheet) so
+   nothing collides with Bootstrap / styles.css used elsewhere on the site. */
 
 #cost-calculator {
   background: #f5f5f0;
@@ -368,4 +369,387 @@
   #cost-calculator .results-table { font-size: 0.85rem; }
   #cost-calculator .results-table th,
   #cost-calculator .results-table td { padding: 0.5rem 0.5rem; }
+}
+
+/* =====================================================================
+   COST CALCULATOR PAGE — surrounding marketing sections.
+   Everything below is scoped to #cost-calculator-page so it cannot leak
+   into Bootstrap or the rest of the marketing site. Mirrors the structure
+   of the standalone cost_calculator repo, adapted to live next to the
+   calculator on benefits.html.
+   ===================================================================== */
+
+#cost-calculator-page {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  color: #373a36;
+  line-height: 1.6;
+}
+
+#cost-calculator-page *,
+#cost-calculator-page *::before,
+#cost-calculator-page *::after { box-sizing: border-box; }
+
+#cost-calculator-page .cc-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+#cost-calculator-page .cc-section-heading {
+  font-size: 2.25rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #373a36;
+}
+
+#cost-calculator-page .cc-section-intro {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 3rem;
+  font-size: 1.05rem;
+  color: #5a5d58;
+  line-height: 1.7;
+}
+
+/* ----- Pain points ----- */
+#cost-calculator-page .cc-pain-points {
+  background: #f5f5f0;
+  padding: 2.5rem 0 5rem;
+}
+
+#cost-calculator-page .cc-pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+#cost-calculator-page .cc-pain-card {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+#cost-calculator-page .cc-pain-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+#cost-calculator-page .cc-pain-card__icon {
+  font-size: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+#cost-calculator-page .cc-pain-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #373a36;
+}
+
+#cost-calculator-page .cc-pain-card p {
+  font-size: 0.925rem;
+  color: #5a5d58;
+  line-height: 1.6;
+}
+
+/* ----- Data callout ----- */
+#cost-calculator-page .cc-data-callout {
+  background: #67823a;
+  padding: 5rem 0;
+  color: #ffffff;
+}
+
+#cost-calculator-page .cc-data-callout__inner {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+#cost-calculator-page .cc-data-callout__stat {
+  text-align: center;
+  min-width: 200px;
+}
+
+#cost-calculator-page .cc-data-callout__number {
+  font-size: 7rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+#cost-calculator-page .cc-data-callout__label {
+  font-size: 1.1rem;
+  opacity: 0.85;
+  margin-top: 0.5rem;
+  line-height: 1.3;
+}
+
+#cost-calculator-page .cc-data-callout__text p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+  opacity: 0.92;
+  color: #ffffff;
+}
+
+#cost-calculator-page .cc-data-callout__text p:last-child {
+  margin-bottom: 0;
+  font-weight: 600;
+  opacity: 1;
+}
+
+/* ----- Board-questions accordion ----- */
+#cost-calculator-page .cc-board-questions {
+  background: #ffffff;
+  padding: 5rem 0;
+}
+
+#cost-calculator-page .cc-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#cost-calculator-page .cc-accordion-item {
+  border: 1px solid #e5e5e0;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+#cost-calculator-page .cc-accordion-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #373a36;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+
+#cost-calculator-page .cc-accordion-header:hover { background: #f9f9f6; }
+
+#cost-calculator-page .cc-accordion-header:focus-visible {
+  outline: 3px solid #c4d600;
+  outline-offset: -3px;
+}
+
+#cost-calculator-page .cc-accordion-chevron {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-left: 1rem;
+  transition: transform 0.3s ease;
+  color: #67823a;
+}
+
+#cost-calculator-page .cc-accordion-item.open .cc-accordion-chevron {
+  transform: rotate(90deg);
+}
+
+#cost-calculator-page .cc-accordion-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+
+#cost-calculator-page .cc-accordion-body__inner {
+  padding: 0 1.5rem 1.5rem;
+}
+
+#cost-calculator-page .cc-accordion-layer {
+  margin-bottom: 1.25rem;
+}
+
+#cost-calculator-page .cc-accordion-layer:last-child { margin-bottom: 0; }
+
+#cost-calculator-page .cc-accordion-layer__label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.35rem;
+}
+
+#cost-calculator-page .cc-accordion-layer__label--hear {
+  color: #8a8a85;
+  font-style: italic;
+}
+
+#cost-calculator-page .cc-accordion-layer__label--reality { color: #67823a; }
+#cost-calculator-page .cc-accordion-layer__label--max     { color: #373a36; }
+
+#cost-calculator-page .cc-accordion-layer p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #5a5d58;
+}
+
+#cost-calculator-page .cc-accordion-layer a {
+  color: #67823a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+#cost-calculator-page .cc-accordion-layer a:hover { color: #c4d600; }
+
+/* ----- Features ("What Max Actually Does") ----- */
+#cost-calculator-page .cc-features {
+  background: #101820;
+  color: #ffffff;
+  padding: 5rem 0;
+}
+
+#cost-calculator-page .cc-features .cc-section-heading { color: #ffffff; }
+#cost-calculator-page .cc-features .cc-section-intro   { color: rgba(255,255,255,0.65); }
+
+#cost-calculator-page .cc-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+#cost-calculator-page .cc-feature-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+#cost-calculator-page .cc-feature-item__icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(196,214,0,0.12);
+  border-radius: 10px;
+}
+
+#cost-calculator-page .cc-feature-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  color: #ffffff;
+}
+
+#cost-calculator-page .cc-feature-item p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.7);
+}
+
+#cost-calculator-page .cc-report-card-callout {
+  margin-top: 3rem;
+  background: rgba(103,130,58,0.2);
+  border-radius: 10px;
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+#cost-calculator-page .cc-report-card-callout p {
+  color: rgba(255,255,255,0.85);
+  font-size: 1rem;
+  margin: 0;
+}
+
+#cost-calculator-page .cc-btn-outline {
+  display: inline-block;
+  border: 2px solid #c4d600;
+  color: #c4d600;
+  font-weight: 700;
+  font-size: 0.925rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+#cost-calculator-page .cc-btn-outline:hover {
+  background: #c4d600;
+  color: #101820;
+}
+
+/* ----- CTA section ----- */
+#cost-calculator-page .cc-cta {
+  background: #c4d600;
+  padding: 5rem 0;
+  text-align: center;
+}
+
+#cost-calculator-page .cc-cta .cc-section-heading { color: #101820; }
+
+#cost-calculator-page .cc-cta p {
+  max-width: 620px;
+  margin: 0 auto 2rem;
+  font-size: 1.05rem;
+  color: #373a36;
+  line-height: 1.7;
+}
+
+#cost-calculator-page .cc-btn-dark {
+  display: inline-block;
+  background: #101820;
+  color: #c4d600;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.9rem 2.25rem;
+  border: none;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+
+#cost-calculator-page .cc-btn-dark:hover {
+  background: #1e2a30;
+  transform: translateY(-1px);
+}
+
+#cost-calculator-page .cc-cta__secondary {
+  display: block;
+  margin-top: 1.25rem;
+  color: #373a36;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+
+#cost-calculator-page .cc-cta__secondary:hover { color: #101820; }
+
+@media (max-width: 1023px) {
+  #cost-calculator-page .cc-pain-grid       { grid-template-columns: repeat(2, 1fr); }
+  #cost-calculator-page .cc-features-grid   { grid-template-columns: 1fr; }
+  #cost-calculator-page .cc-data-callout__inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  #cost-calculator-page .cc-report-card-callout {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 767px) {
+  #cost-calculator-page .cc-section-heading        { font-size: 1.75rem; }
+  #cost-calculator-page .cc-pain-grid              { grid-template-columns: 1fr; }
+  #cost-calculator-page .cc-data-callout__number   { font-size: 5rem; }
+  #cost-calculator-page .cc-features-grid          { grid-template-columns: 1fr; }
+  #cost-calculator-page .cc-btn-dark               { display: block; width: 100%; text-align: center; }
 }
