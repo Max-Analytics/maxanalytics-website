@@ -4,7 +4,7 @@
   var src = scripts.length ? scripts[scripts.length - 1].getAttribute('src') : '';
   var base = src.replace(/js\/footer\.js.*$/, '');
 
-  var isDark = !!document.querySelector('link[href*="redesign.css"]');
+  var isDark = !!document.querySelector('link[href*="redesign.css"], link[href*="insights-landing.css"]');
   var logo = isDark ? 'logo-colour-white.png' : 'logo-colour.png';
 
   var html =

@@ -19,7 +19,7 @@
 .site-footer a { color: #637282; text-decoration: none; }
 .site-footer a:hover { color: #33475c; text-decoration: underline; }
 
-/* Dark theme (home page) */
+/* Dark theme (home and Insights landing pages) */
 .site-footer--dark {
   border-top-color: rgba(255,255,255,0.10);
   color: rgba(255,255,255,0.50);

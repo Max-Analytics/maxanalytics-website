@@ -10,7 +10,10 @@
   var path = window.location.pathname;
   var page = path.substring(path.lastIndexOf('/') + 1) || 'index.html';
   var isHelpCentre = path.indexOf('support-help-centre') !== -1;
-  var isHome = (path === '/' || page === 'index.html') && !isHelpCentre;
+  var isInsights = path.indexOf('/insights/') !== -1;
+  var isInsightsLanding = /\/insights\/(index\.html)?$/.test(path);
+  // Only the root index is home; a folder page like /feedback/ also resolves to index.html.
+  var isHome = base === '' && page === 'index.html';
 
   /* ---- Build link list ---- */
   var links = [
@@ -20,6 +23,7 @@
     { label: 'Pricing',    href: base + 'pricing.html',                                      page: 'pricing.html' },
     { label: 'FAQs',       href: base + 'faqs.html',                                         page: 'faqs.html' },
     { label: 'Evaluators', href: base + 'evaluators.html',                                   page: 'evaluators.html' },
+    { label: 'Insights',   href: base + 'insights/',                                         page: null },
     { label: 'Contact',    href: base + 'contact.html',                                      page: 'contact.html' },
     { label: 'About',      href: base + 'about.html',                                        page: 'about.html' },
     { label: 'Help Centre', href: base + 'support-help-centre/',                              page: null }
@@ -29,10 +33,16 @@
   var linksHtml = '';
   for (var i = 0; i < links.length; i++) {
     var l = links[i];
-    var active = '';
-    if (l.page && l.page === page && !isHelpCentre && !isHome) active = ' is-active';
-    if (isHelpCentre && l.label === 'Help Centre') active = ' is-active';
-    linksHtml += '<a href="' + l.href + '" class="site-nav__link' + active + '">' + l.label + '</a>';
+    var active = false;
+    var current = false;
+    if (base === '' && l.page && l.page === page && !isHome) active = current = true;
+    if (isHelpCentre && l.label === 'Help Centre') active = true;
+    if (isInsights && l.label === 'Insights') {
+      active = true;
+      current = isInsightsLanding;
+    }
+    linksHtml += '<a href="' + l.href + '" class="site-nav__link' + (active ? ' is-active' : '') + '"' +
+      (current ? ' aria-current="page"' : '') + '>' + l.label + '</a>';
   }
 
   /* ---- Full nav HTML ---- */

@@ -1,0 +1,241 @@
+/* insights.css — long-form white paper layout shared by every page under /insights/ */
+
+:root {
+  --paper: #fbfaf6;
+  --ink: #101820;
+  --ink-2: #373a36;
+  --muted: #6b6e69;
+  --green: #67823a;
+  --lime: #c4d600;
+  --rule: #e3e1d8;
+  --note-bg: #f1f3e8;
+  --note-border: #c9d5a6;
+  --paper-col: 43rem;
+  /* Aligns the shared footer with the reading column */
+  --maxw: var(--paper-col);
+}
+
+html { background: var(--paper); }
+
+body.insight {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+}
+
+.paper {
+  max-width: var(--paper-col);
+  margin: 0 auto;
+  padding: 40px 18px 64px;
+}
+
+.paper *, .paper *::before, .paper *::after { box-sizing: border-box; }
+
+/* ---------- Toolbar: back to the landing page, PDF download ---------- */
+.paper__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin: 0 0 28px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.paper .paper__back { color: var(--ink-2); border-bottom: none; }
+.paper .paper__back:hover { color: var(--green); }
+
+.paper .paper__download {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 14px;
+  border: 2px solid #b8d000;
+  border-radius: 999px;
+  color: var(--ink);
+  background: transparent;
+}
+.paper .paper__download:hover { background: rgba(184,208,0,0.14); border-color: #b8d000; }
+
+.paper .paper__kicker {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+
+.paper .paper__title {
+  margin: 0 0 10px;
+  font-size: clamp(30px, 5vw, 42px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.paper .paper__subtitle {
+  margin: 0 0 28px;
+  font-size: clamp(15px, 2vw, 16.5px);
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--ink-2);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.paper h2 {
+  margin: 44px 0 12px;
+  font-size: clamp(22px, 3vw, 26px);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.paper h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 3px;
+  margin-top: 10px;
+  background: var(--lime);
+  border-radius: 2px;
+}
+
+.paper p { margin: 0 0 16px; }
+.paper ul { margin: 0 0 16px; padding-left: 22px; }
+.paper li { margin: 0 0 8px; }
+.paper li::marker { color: var(--green); }
+.paper strong { font-weight: 800; }
+
+.paper .pull {
+  margin: 20px 0;
+  padding-left: 16px;
+  border-left: 3px solid var(--lime);
+  color: var(--ink-2);
+  font-style: italic;
+}
+
+/* ---------- Author notes ---------- */
+.note {
+  margin: 28px 0;
+  padding: 18px 20px 6px;
+  background: var(--note-bg);
+  border: 1px solid var(--note-border);
+  border-left: 4px solid var(--green);
+  border-radius: 10px;
+}
+.note--before { margin-top: 8px; }
+.note--after { margin-top: 44px; }
+.paper .note p { font-size: 16px; }
+
+.paper .note__label {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.paper .note__sig { margin-bottom: 2px; color: var(--ink-2); font-weight: 700; }
+.paper .note__title { margin-top: 0; color: var(--muted); font-weight: 400; font-size: 14px; }
+
+.paper a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid var(--note-border);
+}
+.paper a:hover { border-bottom-color: var(--green); }
+
+/* ---------- Figures ---------- */
+.figure {
+  margin: 24px 0 28px;
+  padding: 12px 8px 8px;
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+}
+
+.figure__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.figure figcaption {
+  margin: 10px 8px 4px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.figure__hint { display: none; }
+
+/* Fixed-size chart text gets too small on phones, so the chart keeps a readable width and swipes */
+@media (max-width: 600px) {
+  .figure__scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+  }
+  .figure__img { width: 540px; max-width: none; }
+  .figure__hint {
+    display: block;
+    margin: 6px 8px 0;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--green);
+  }
+}
+
+.paper .paper__end {
+  margin: 48px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  font-size: 13.5px;
+}
+
+@media (max-width: 480px) {
+  body.insight { font-size: 16px; }
+  .paper { padding-top: 28px; padding-left: 16px; padding-right: 16px; }
+  .note { padding: 16px 16px 4px; }
+}
+
+/* ---------- Print: the paper only, no site chrome ---------- */
+@media print {
+  @page { size: Letter; margin: 0.7in 0.85in 0.7in; }
+  html, body.insight { background: #fff; }
+  body.insight { font-size: 10.6pt; line-height: 1.38; color: #000; }
+  .site-nav, .site-footer, .paper__toolbar, iframe, #launcher { display: none !important; }
+  .paper { max-width: none; padding: 0; }
+  .paper__title { font-size: 25pt; }
+  .paper__subtitle { font-size: 11.4pt; margin-bottom: 16pt; }
+  .paper .note__title { font-size: 9.6pt; }
+  .paper h2 { font-size: 16pt; margin-top: 16pt; break-after: avoid; page-break-after: avoid; }
+  .paper h2::after { height: 2.2pt; }
+  .paper p, .paper li { orphans: 3; widows: 3; }
+  .note {
+    padding: 12pt 14pt 2pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .paper .note p { font-size: 10.3pt; }
+  .note--after { margin-top: 10pt; }
+  .figure { margin: 12pt 0 14pt; padding: 6pt; break-inside: avoid; page-break-inside: avoid; }
+  .figure__img { width: 100%; max-height: 7.4in; }
+  .figure__hint { display: none; }
+  .figure figcaption { font-size: 9.2pt; }
+  .pull, .keep { break-inside: avoid; page-break-inside: avoid; }
+  .paper .paper__end { margin-top: 16pt; padding-top: 10pt; font-size: 9.2pt; break-before: avoid; }
+  .paper a { color: inherit; border-bottom: none; }
+  .paper .note a { color: #67823a; }
+}

@@ -3,3 +3,4 @@
 .idea/tasks.xml
 .firebase/*.cache
 .DS_Store
+firebase-debug.log*

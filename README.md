@@ -34,6 +34,32 @@ There is no build step — HTML, CSS, and JS files are served directly from the 
 | Site ID    | `max-static`   |
 | Public dir | `.` (repo root) |
 
+## Run Locally
+
+```sh
+firebase emulators:start --only hosting
+```
+
+Then open http://127.0.0.1:8765 (port pinned in `firebase.json`; macOS AirPlay Receiver holds 5000). Stop with `Ctrl+C`.
+
+Use the emulator rather than a generic static server (`python3 -m http.server`, `npx serve`, …) — it reproduces production routing:
+
+- Any unknown path, at any depth, returns `404.html` with a 404 status.
+- A folder without an `index.html` (e.g. `/insights/papers/`, `/css/`) is a 404 — directory contents are never listed.
+- A folder URL without its trailing slash redirects to the slash form.
+
+Because `404.html` is served at whatever path was requested, every asset and link in it is root-absolute (`/css/...`, `/js/...`).
+
+## Insights
+
+`/insights/` is the landing page for the white-paper series (`insights/index.html`, styled by `css/insights-landing.css`). Each paper lives in `insights/papers/` as `<slug>.html` (styled by the shared `css/insights.css`) and `<slug>.pdf`, with any figures named `<slug>-figure-<n>.svg`. The **Insights** nav link points at the landing page.
+
+To publish a paper the landing page lists as coming soon:
+
+1. Add `<slug>.html`, `<slug>.pdf` and its figures to `insights/papers/`. Build the HTML by copying an existing paper and swapping in the body — the content team's standalone HTML has its own top bar and inline CSS, where ours uses the shared nav, footer and PDF toolbar.
+2. In `insights/index.html`, on that paper's card: remove `paper--soon` from the `<article>`, replace the "Landing …" tag with the **Read online** / **Download PDF** buttons, and replace the status line with pages · read time · month. Copy Paper 1's card.
+3. Add the paper's URL to `sitemap.xml`.
+
 ## Manual Deployment
 
 **Deploy to production:**
@@ -78,7 +104,7 @@ Both workflows use the `FIREBASE_SERVICE_ACCOUNT_MAXANALYTICS` repository secret
 
 | File | Purpose |
 | ---- | ------- |
-| `firebase.json` | Hosting configuration (site ID, public directory, ignore patterns) |
+| `firebase.json` | Hosting configuration (site ID, public directory, ignore patterns — dotfiles and `*.md` never deploy) and the local emulator port |
 | `.firebaserc` | Maps the `default` project alias to `maxanalytics` |
 | `.github/workflows/firebase-hosting-merge.yml` | Auto-deploy on push to `master` |
 | `.github/workflows/firebase-hosting-pull-request.yml` | Preview deploy on PRs |
