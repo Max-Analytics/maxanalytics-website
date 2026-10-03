@@ -1,0 +1,107 @@
+/* insights-subscribe.css — the Insights sign-up page (insights/subscribe/) and its thank-you page.
+   Loaded after css/insights-landing.css, whose dark theme tokens (--lime, --muted, --hair…) it uses. */
+
+.sub {
+  max-width: 640px;
+  margin: 0 auto;
+  padding-block: clamp(40px, 7vw, 90px) 40px;
+}
+
+.sub__card {
+  padding: clamp(22px, 4vw, 40px);
+  border: 3px solid rgba(184,208,0,0.9);
+  border-radius: var(--radius);
+  background: rgba(11,31,59,0.55);
+  box-shadow: var(--shadow);
+}
+
+.sub__title {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 3.2vw, 40px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.sub__lead { margin: 0 0 26px; font-size: 17px; color: var(--muted); }
+.sub__lead--last { margin: 0; }
+.sub__link { color: var(--lime-bright); }
+
+/* ---------- Form ---------- */
+.field { display: grid; gap: 7px; margin: 0 0 18px; }
+.field label, .field legend { font-size: 15px; font-weight: 700; }
+.field__hint { font-weight: 400; color: var(--muted2); }
+
+.field input[type=text],
+.field input[type=email] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  background: #fff;
+  color: #101820;
+  font: inherit;
+  font-size: 16px;
+}
+.field input:focus { outline: none; border-color: var(--lime); }
+
+fieldset.field { min-width: 0; margin: 0 0 18px; padding: 0; border: 0; }
+
+.checks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 12px;
+  border: 1px solid var(--hair);
+  border-radius: 10px;
+  background: rgba(7,22,43,0.5);
+  font-size: 15px;
+  cursor: pointer;
+}
+.check:has(input:checked) { border-color: var(--lime); }
+.check input { flex: none; width: 18px; height: 18px; accent-color: var(--lime); }
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 6px 0 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.consent input { flex: none; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--lime); }
+
+/* Off-screen rather than display:none, which some bots check for before filling a field */
+.sub__hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+
+.sub__btn {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid var(--lime);
+  border-radius: 999px;
+  background: var(--lime);
+  color: #101820;
+  font: inherit;
+  font-size: 17px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.sub__btn:hover { background: var(--lime-bright); }
+.sub__btn:disabled { opacity: .6; cursor: progress; }
+
+.sub__error { margin: 14px 0 0; font-size: 14.5px; color: #ffb4a8; }
+.sub__error a, .sub__small a { color: inherit; }
+.sub__small { margin: 16px 0 0; font-size: 13px; color: var(--muted2); }
+.sub__back { display: inline-block; margin-top: 22px; font-size: 15px; color: var(--muted); }
+
+@media (max-width: 560px) {
+  .checks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

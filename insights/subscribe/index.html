@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-CA">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Subscribe | Max Analytics Insights</title>
+
+    <meta name="description" content="Get each paper in the Max Analytics youth hockey series by email as it lands. Paper 2 lands October 9th and Paper 3 October 16th.">
+    <meta name="theme-color" content="#07162b">
+    <link rel="canonical" href="https://maxanalytics.ca/insights/subscribe/">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../../favicon.ico">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/header.css">
+    <link rel="stylesheet" href="../../css/footer.css">
+    <link rel="stylesheet" href="../../css/insights-landing.css">
+    <link rel="stylesheet" href="../../css/insights-subscribe.css">
+
+    <script src="../../js/gtag.js"></script>
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=cb016587-14d8-45bd-82b9-3a69ded6091b"></script>
+</head>
+
+<body class="insights-landing">
+
+<div id="site-nav"></div>
+<script src="../../js/header.js"></script>
+
+<main><div class="wrap"><section class="sub">
+  <div class="sub__card">
+    <p class="kicker">Insights · Youth hockey series</p>
+    <h1 class="sub__title">Want Part 2 when it's released?</h1>
+    <p class="sub__lead">Get each paper in the series by email as it lands. Paper 2, <em>The Competitive Gap Problem</em>, lands October 9th. Paper 3 lands October 16th.</p>
+    <!-- js/insights-subscribe.js rewrites the action's success_url to this host, so local and preview tests come back here -->
+    <form id="insights-subscribe" name="insights-subscribe" method="post" action="https://customerioforms.com/forms/submit_action?site_id=6884b9ed3db7e786e740&amp;form_id=insights-series&amp;success_url=https%3A%2F%2Fmaxanalytics.ca%2Finsights%2Fsubscribe%2Fthanks%2F">
+      <div class="field"><label for="name">Name</label><input type="text" id="name" name="name" autocomplete="name"></div>
+      <div class="field"><label for="email">Email</label><input type="email" id="email" name="email" autocomplete="email" required></div>
+      <fieldset class="field"><legend>Your relationship to hockey <span class="field__hint">(select all that apply)</span></legend>
+        <div class="checks">
+          <label class="check"><input type="checkbox" value="player"> Player</label>
+          <label class="check"><input type="checkbox" value="parent"> Parent</label>
+          <label class="check"><input type="checkbox" value="coach"> Coach</label>
+          <label class="check"><input type="checkbox" value="administrator"> Administrator</label>
+          <label class="check"><input type="checkbox" value="fan"> Fan</label>
+          <label class="check"><input type="checkbox" value="other"> Other</label>
+        </div>
+      </fieldset>
+      <label class="consent"><input type="checkbox" name="marketing_consent" value="yes" required> Yes, Max Analytics may email me the papers in this series and related insights. I can unsubscribe at any time.</label>
+      <div class="sub__hp" aria-hidden="true"><label>Leave this empty<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
+      <input type="hidden" name="hockey_relationship" value="">
+      <input type="hidden" name="insights_series_subscriber" value="true">
+      <button class="sub__btn" type="submit">Subscribe</button>
+      <p class="sub__error" role="alert" hidden>Sign-up isn't available right now. Please email <a href="mailto:mark@maxanalytics.ca">mark@maxanalytics.ca</a> and we'll add you.</p>
+      <p class="sub__small">We use your email only to send the series and related insights. No spam, ever. <a href="../../privacy.html">Privacy Policy</a></p>
+    </form>
+  </div>
+  <a class="sub__back" href="../">‹ Back to Insights</a>
+</section></div></main>
+
+<script src="../../js/footer.js"></script>
+<script src="../../js/insights-subscribe.js"></script>
+</body>
+
+</html>

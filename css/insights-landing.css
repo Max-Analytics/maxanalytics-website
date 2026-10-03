@@ -127,6 +127,15 @@ a { color: inherit; }
 }
 .cta-card:hover { transform: translateY(-2px); background: rgba(11,31,59,0.75); }
 
+/* The subscribe card is the page's default action: filled lime, ahead of Paper 1 */
+.cta-card--primary { border-color: var(--lime); background: var(--lime); color: #101820; box-shadow: 0 18px 50px rgba(184,208,0,0.25); }
+.cta-card--primary:hover { border-color: var(--lime-bright); background: var(--lime-bright); }
+.cta-card--primary .cta-card__eyebrow { color: rgba(16,24,32,0.72); }
+.cta-card--primary .cta-card__icon { color: #101820; }
+.cta-card--primary:focus-visible { outline-color: #fff; }
+
+.subscribe__note { margin: 16px 0 0; font-size: 14px; color: var(--muted2); }
+
 .cta-card__eyebrow {
   margin-bottom: 4px;
   font-size: 12px;
@@ -312,6 +321,7 @@ a { color: inherit; }
 .paper__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin-top: 14px;
 }
@@ -394,6 +404,8 @@ a { color: inherit; }
   background: rgba(7,22,43,0.6);
 }
 
+.invite__subscribe { width: 100%; margin: 0 0 16px; }
+.invite__or { margin: 0 0 10px; font-size: 14px; color: var(--muted2); }
 .invite__name { margin: 0; font-size: 18px; font-weight: 800; }
 .invite__role { margin: 0 0 14px; font-size: 14.5px; color: var(--muted2); }
 
@@ -425,6 +437,21 @@ a { color: inherit; }
   cursor: pointer;
 }
 .copy:hover { border-color: var(--lime); }
+
+/* ---------- Lime pill button (invite card, subscribe pages) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 20px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.btn--lime { border: 2px solid var(--lime); background: var(--lime); color: #101820; }
+.btn--lime:hover { border-color: var(--lime-bright); background: var(--lime-bright); }
 
 /* ---------- Shared footer: align with the page content ---------- */
 .insights-landing .site-footer { margin-top: 20px; padding-inline: 0; }

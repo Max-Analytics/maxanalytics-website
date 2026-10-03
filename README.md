@@ -52,13 +52,32 @@ Because `404.html` is served at whatever path was requested, every asset and lin
 
 ## Insights
 
-`/insights/` is the landing page for the white-paper series (`insights/index.html`, styled by `css/insights-landing.css`). Each paper lives in `insights/papers/` as `<slug>.html` (styled by the shared `css/insights.css`) and `<slug>.pdf`, with any figures named `<slug>-figure-<n>.svg`. Both **Download PDF** buttons (toolbar and after the closing note) set `download="<Paper Title> - Max Analytics.pdf"` so the file saves under the paper's name. The **Insights** nav link points at the landing page.
+`/insights/` is the landing page for the white-paper series (`insights/index.html`, styled by `css/insights-landing.css`). Each paper lives in `insights/papers/` as `<slug>.html` (styled by the shared `css/insights.css`) and `<slug>.pdf`, with any figures named `<slug>-figure-<n>.svg`. A paper has two lime **Subscribe** boxes (below the subtitle and after the closing note), each with a **Download PDF** button that sets `download="<Paper Title> - Max Analytics.pdf"` so the file saves under the paper's name. The **Insights** nav link points at the landing page.
 
 To publish a paper the landing page lists as coming soon:
 
-1. Add `<slug>.html`, `<slug>.pdf` and its figures to `insights/papers/`. Build the HTML by copying an existing paper and swapping in the body — the content team's standalone HTML has its own top bar and inline CSS, where ours uses the shared nav, footer and PDF toolbar.
-2. In `insights/index.html`, on that paper's card: remove `paper--soon` from the `<article>`, replace the "Landing …" tag with the **Read online** / **Download PDF** buttons, and replace the status line with pages · read time · month. Copy Paper 1's card.
+1. Add `<slug>.html`, `<slug>.pdf` and its figures to `insights/papers/`. Build the HTML by copying an existing paper and swapping in the body — the content team's standalone HTML has its own top bar and inline CSS, where ours uses the shared nav, footer and toolbar.
+2. In `insights/index.html`, on that paper's card: remove `paper--soon` from the `<article>`, replace the "Landing …" tag and **Get it by email** button with the **Read online** / **Download PDF** buttons, and replace the status line with pages · read time · month. Copy Paper 1's card.
 3. Add the paper's URL to `sitemap.xml`.
+4. Update the release dates where they appear: the landing page's note under the hero cards and the paper cards, and the lead paragraphs of `insights/subscribe/index.html` and `insights/subscribe/thanks/index.html`.
+
+The landing page draws its win-rate chart twice: `chart--full` (the content team's SVG, verbatim) and `chart--compact`, a 320-px-wide redraw of the same bins for phones. When the data changes, redraw the compact one from the full one's bar counts.
+
+### Insights sign-up
+
+Every subscribe button links to `insights/subscribe/`, a standard HTML form (`#insights-subscribe`, styled by `css/insights-subscribe.css`). It posts to Customer.io's hosted Forms endpoint (`customerioforms.com/forms/submit_action`), so there is no backend and no Customer.io JS snippet to install. Customer.io creates or updates the person and redirects to `insights/subscribe/thanks/`. The site ID (public, not a secret) and form ID **insights-series** live in the form's `action`; `js/insights-subscribe.js` points `success_url` at whichever host served the page, so local and preview tests return to themselves.
+
+| Form field | Customer.io attribute | Value |
+| --- | --- | --- |
+| Name | `name` | Free text, optional |
+| Email | `email` | The identifier, required |
+| Relationship to hockey | `hockey_relationship` | Ticked boxes joined as one string, e.g. `parent, coach` (segment with *contains*) |
+| Consent | `marketing_consent` | `yes`, required: express consent under Canada's anti-spam law |
+| hidden | `insights_series_subscriber` | `true` |
+
+Every sign-up joins the **MaxAnalytics Marketing Updates** manual segment (id 15, Max Production workspace), the explicit list for marketing sends. The hosted form can't add to a segment itself, so the Customer.io automation *Marketing Form Subscriptions* does: trigger *form submitted: insights-series*, action *Manual Segment Update → add*. Keep the form ID unchanged or that automation stops firing.
+
+Bot defence today is client-side only: a hidden honeypot field (`company_website`) and a 1.5 s minimum between page load and submit. A tripped check shows the thank-you page and sends nothing. It stops form-filling bots but not a script posting straight to Customer.io; reCAPTCHA and rate limits need a server endpoint, which is the planned follow-up.
 
 ## Manual Deployment
 
