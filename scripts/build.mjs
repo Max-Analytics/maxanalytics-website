@@ -14,16 +14,17 @@
  * {{name|fallback}} uses the fallback when nothing supplies the name. A missing name with no fallback, or an
  * unknown partial, fails the build, so no page ships a half-filled snippet.
  *
- * The build fails on structured data (application/ld+json) that isn't valid JSON, and on any image a page,
- * stylesheet or script uses that is over IMAGE_LIMIT_KB; it warns about images that ship but nothing uses.
- * README "Images" has the how-to.
+ * The build also writes dist/sitemap.xml: every page whose canonical link points at itself and that isn't
+ * noindex, dated by the last commit that changed its source file (today if uncommitted). It fails on
+ * structured data (application/ld+json) that isn't valid JSON, and on any image a page, stylesheet or script uses
+ * that is over IMAGE_LIMIT_KB; it warns about images that ship but nothing uses. README "Images" has the how-to.
  *
  * Usage:  node scripts/build.mjs           build once
  *         node scripts/build.mjs --watch   build, then rebuild whenever a source file changes
  *         node scripts/build.mjs --serve   --watch, plus the Firebase hosting emulator serving dist/
  */
 import { cpSync, existsSync, readFileSync, readdirSync, rmSync, statSync, watch, writeFileSync } from 'node:fs';
-import { spawn } from 'node:child_process';
+import { execFileSync, spawn } from 'node:child_process';
 import { basename, dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -31,10 +32,13 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'dist');
 const PARTIALS = join(ROOT, 'partials');
 // Repo-only files and folders: never copied to dist/. Dotfiles are skipped separately.
-const SKIP = new Set(['dist', 'partials', 'scripts', 'node_modules', 'firebase.json', 'package.json', 'package-lock.json']);
+const SKIP = new Set(['dist', 'partials', 'scripts', 'node_modules', 'firebase.json', 'package.json', 'package-lock.json', 'sitemap.xml']);
 const SKIP_EXT = ['.md', '.log'];
 // Served at whatever path was requested, so its links and assets must be root-absolute.
 const ROOT_ABSOLUTE_PAGES = new Set(['404.html']);
+const SITE = 'https://maxanalytics.ca/';
+// Self-canonical pages kept out of the sitemap: the family survey form (until it is marked noindex).
+const SITEMAP_EXCLUDE = new Set(['feedback/index.html']);
 const IMAGE_LIMIT_KB = 300;
 const IMAGE_EXT = /\.(png|jpe?g|jfif|gif|webp|avif)$/i;
 const MARKER = /^([ \t]*)<!-- partial:([a-z0-9-]+)((?:\s+[a-z_]+="[^"]*")*)\s*-->[ \t]*$/gm;
@@ -101,10 +105,32 @@ function expand(html, rel) {
   });
 }
 
+function lastChanged(rel) {
+  try {
+    const date = execFileSync('git', ['log', '-1', '--format=%cs', '--', rel], { cwd: ROOT, encoding: 'utf8' }).trim();
+    return date || new Date().toISOString().slice(0, 10);
+  } catch {
+    return new Date().toISOString().slice(0, 10);
+  }
+}
+
+function sitemapEntry(html, rel) {
+  const self = SITE + rel.replace(/(^|\/)index\.html$/, '$1');
+  const canonical = (html.match(/<link rel="canonical" href="([^"]*)"/) || [])[1];
+  if (canonical !== self || SITEMAP_EXCLUDE.has(rel) || /<meta name="robots" content="[^"]*noindex/.test(html)) return null;
+  return { loc: self, lastmod: lastChanged(rel) };
+}
+
 function checkStructuredData(html, rel) {
   for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
     try { JSON.parse(json); } catch (err) { throw new Error(`${rel}: invalid structured data (${err.message})`); }
   }
+}
+
+function writeSitemap(entries) {
+  entries.sort((a, b) => (a.loc === SITE ? -1 : b.loc === SITE ? 1 : a.loc.localeCompare(b.loc)));
+  const urls = entries.map((e) => `    <url>\n        <loc>${e.loc}</loc>\n        <lastmod>${e.lastmod}</lastmod>\n    </url>`);
+  writeFileSync(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
 }
 
 function build() {
@@ -115,15 +141,19 @@ function build() {
     if (shipped(src)) cpSync(src, join(OUT, name), { recursive: true, filter: shipped });
   }
   let expanded = 0;
+  const sitemap = [];
   for (const file of htmlFiles(OUT)) {
     const rel = relative(OUT, file).split(sep).join('/');
     const html = readFileSync(file, 'utf8');
     const out = expand(html, rel);
     if (out !== html) { writeFileSync(file, out); expanded++; }
     checkStructuredData(out, rel);
+    const entry = sitemapEntry(out, rel);
+    if (entry) sitemap.push(entry);
   }
+  writeSitemap(sitemap);
   checkImages();
-  console.log(`Built dist/ in ${Date.now() - started} ms (${expanded} page(s) with partials).`);
+  console.log(`Built dist/ in ${Date.now() - started} ms (${expanded} page(s) with partials, ${sitemap.length} in the sitemap).`);
 }
 
 build();

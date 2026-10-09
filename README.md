@@ -91,6 +91,7 @@ The site is meant to rank for, and be cited by Google AI Overviews and other AI 
 - **Plain links for crawlers.** Many crawlers (ChatGPT, Perplexity, Claude) don't run JavaScript, so the `site-nav` and `site-footer` partials put the menu and footer links in the HTML, and the scripts build the visible menu and footer from them. There is one copy of each link list, in `partials/`.
 - **Every page has** a specific `<title>` (about 60 characters), a `description` (about 160), and a `canonical` link. The duplicate `privacy/`, `privacy-policy/`, `terms/` and `terms-of-service/` pages point their canonical at `privacy.html` / `terms.html`.
 - **Structured data.** `index.html` declares the `Organization` (`@id` `https://maxanalytics.ca/#organization`) and `faqs.html` has `FAQPage`.
+- **Sitemap, generated.** The build writes `dist/sitemap.xml`; there is no hand-kept sitemap. A page is listed when its canonical link points at itself and it isn't `noindex`, dated by the last commit that changed its source file. To keep a page out, mark it `noindex` or point its canonical elsewhere (the family feedback form is excluded in `scripts/build.mjs` until it gets `noindex`). `robots.txt` points at the sitemap. Submit it once in Google Search Console and Bing Webmaster Tools; they reread it themselves after that.
 - **Build checks.** The build fails on structured data that isn't valid JSON, an unknown partial, or a partial missing a value.
 
 ## Insights
@@ -101,7 +102,7 @@ To publish a paper the landing page lists as coming soon:
 
 1. Add `<slug>.html`, `<slug>.pdf` and its figures to `insights/papers/`. Build the HTML by copying an existing paper and swapping in the body — the content team's standalone HTML has its own top bar and inline CSS, where ours uses the shared nav, footer and toolbar.
 2. In `insights/index.html`, on that paper's card: remove `paper--soon` from the `<article>`, replace the "Landing …" tag and **Get it by email** button with the **Read online** / **Download PDF** buttons, and replace the status line with pages · read time · month. Copy Paper 1's card.
-3. Add the paper's URL to `sitemap.xml`.
+3. Give the paper a self-referencing canonical link; the build adds it to the sitemap.
 4. Update the release dates where they appear: the landing page's note under the hero cards and the paper cards, and the lead paragraphs of `insights/subscribe/index.html` and `insights/subscribe/thanks/index.html`.
 
 The landing page draws its win-rate chart twice: `chart--full` (the content team's SVG, verbatim) and `chart--compact`, a 320-px-wide redraw of the same bins for phones. When the data changes, redraw the compact one from the full one's bar counts.
@@ -130,7 +131,7 @@ Bot defence today is client-side only: a hidden honeypot field (`company_website
 npm run deploy:prod
 ```
 
-This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first, so a deploy never ships stale or raw pages. Deploys are manual; there is no CI deploy. Deploy from an up-to-date `master` with a clean working tree, since the build ships whatever is on disk.
+This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first (including the sitemap), so a deploy never ships stale or raw pages. Deploys are manual; there is no CI deploy. Deploy from an up-to-date `master` with a clean working tree, since the build ships whatever is on disk and dates the sitemap from git history.
 
 **Deploy to a preview channel** (creates a temporary URL for testing):
 
@@ -158,6 +159,6 @@ firebase hosting:channel:delete CHANNEL_NAME --site max-static
 | ---- | ------- |
 | `firebase.json` | Hosting configuration: the `production` target, `dist/` as the public directory, the `predeploy` build, and the local emulator port |
 | `package.json` | `npm run dev`, `serve`, `build` and `deploy:prod` (no dependencies) |
-| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials and checks structured data |
+| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials, writes the sitemap and checks structured data |
 | `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |
 | `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the `production` hosting target to `max-static` |

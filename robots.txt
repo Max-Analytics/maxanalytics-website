@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /investors/index.html
+
+Sitemap: https://maxanalytics.ca/sitemap.xml
