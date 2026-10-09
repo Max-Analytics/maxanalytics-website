@@ -58,6 +58,7 @@ Anything repeated across pages lives once in `partials/` and is placed with a ma
 
 ```html
 <!-- partial:site-nav -->
+<!-- partial:cta-demo location="compare_hub" secondary_href="/pricing.html" secondary_label="See pricing" -->
 ```
 
 `npm run build` (and every deploy) replaces each marker in the `dist/` copy; the source page keeps the marker. Values in a partial come from the marker first, then from the page (`{{title}}`, `{{description}}` and `{{url}}` are read from its `<title>`, meta description and canonical link; `{{root}}` is the path back to the site root). `{{name|fallback}}` supplies a default. An unknown partial or a missing value fails the build.
@@ -67,6 +68,9 @@ Anything repeated across pages lives once in `partials/` and is placed with a ma
 | `site-nav` | every page, top of `<body>` | Plain menu links for crawlers that skip JavaScript, and `js/header.js`, which builds the real menu **from those links**. Edit the menu here only. |
 | `site-footer` | every page, end of `<body>` | Footer links for crawlers, and `js/footer.js`, which builds the footer from them. |
 | `head-services` | every page, in `<head>` | Favicon, Google Analytics and the Zendesk widget. |
+| `cta-demo` | the tryout page | The closing "See Max run a tryout" section. Takes `location` (the analytics label), `secondary_href` and `secondary_label`. |
+
+Any link with `data-demo="<label>"` opens the Zendesk widget (its `href` is the fallback when the widget hasn't loaded) and records a `cta_click` with that label; `js/header.js` handles it on every page.
 
 When the same markup turns up on a second page, make it a partial rather than copying it.
 
@@ -88,9 +92,10 @@ cwebp -q 80 -resize <2x display width> 0 -metadata none input.png -o images/name
 
 The site is meant to rank for, and be cited by Google AI Overviews and other AI search on, queries like "minor hockey evaluation and tryout software". What keeps that working:
 
+- **The landing page.** `minor-hockey-tryout-software/index.html` (styled by `css/redesign.css` plus `css/tryout-software.css`) answers the query in its first paragraph. It is the hub every blog post and outside listing links to. Its FAQ is repeated as `FAQPage` structured data in the head, so edit both together.
 - **Plain links for crawlers.** Many crawlers (ChatGPT, Perplexity, Claude) don't run JavaScript, so the `site-nav` and `site-footer` partials put the menu and footer links in the HTML, and the scripts build the visible menu and footer from them. There is one copy of each link list, in `partials/`.
 - **Every page has** a specific `<title>` (about 60 characters), a `description` (about 160), and a `canonical` link. The duplicate `privacy/`, `privacy-policy/`, `terms/` and `terms-of-service/` pages point their canonical at `privacy.html` / `terms.html`.
-- **Structured data.** `index.html` declares the `Organization` (`@id` `https://maxanalytics.ca/#organization`) and `faqs.html` has `FAQPage`.
+- **Structured data.** `index.html` declares the `Organization` (`@id` `https://maxanalytics.ca/#organization`), the landing page declares the `SoftwareApplication` with pricing, and `faqs.html` has `FAQPage`. Update the prices there when `pricing.html` changes.
 - **Sitemap, generated.** The build writes `dist/sitemap.xml`; there is no hand-kept sitemap. A page is listed when its canonical link points at itself and it isn't `noindex`, dated by the last commit that changed its source file. To keep a page out, mark it `noindex` or point its canonical elsewhere (the family feedback form is excluded in `scripts/build.mjs` until it gets `noindex`). `robots.txt` points at the sitemap. Submit it once in Google Search Console and Bing Webmaster Tools; they reread it themselves after that.
 - **Build checks.** The build fails on structured data that isn't valid JSON, an unknown partial, or a partial missing a value.
 

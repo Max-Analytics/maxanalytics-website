@@ -62,7 +62,7 @@
             linksHtml +
           '</nav>' +
           '<div class="site-nav__cta">' +
-            '<a class="site-nav__btn site-nav__btn--outline" href="#" id="nav-request-demo">Request Demo</a>' +
+            '<a class="site-nav__btn site-nav__btn--outline" href="' + base + 'contact.html" data-demo="navbar">Request Demo</a>' +
             '<span class="site-nav__or">or</span>' +
             '<a class="site-nav__login" href="https://app.maxanalytics.ca">Login</a>' +
           '</div>' +
@@ -180,23 +180,17 @@
       updateActiveLink();
     }
 
-    /* Request Demo click handler */
-    var demoBtn = document.getElementById('nav-request-demo');
-    if (demoBtn) {
-      demoBtn.addEventListener('click', function (e) {
-        e.preventDefault();
+    /* Request Demo: every [data-demo] link opens the Zendesk widget (href is the fallback) and records the click */
+    var demoLinks = document.querySelectorAll('[data-demo]');
+    for (var d = 0; d < demoLinks.length; d++) {
+      demoLinks[d].addEventListener('click', function (e) {
         closeDrawer();
-        if (typeof zE !== 'undefined') {
-          zE('webWidget', 'open');
-        } else {
-          window.location.href = base + 'contact.html';
-        }
         if (typeof gtag !== 'undefined') {
-          gtag('event', 'cta_click', {
-            cta_type: 'request_demo',
-            cta_location: 'navbar'
-          });
+          gtag('event', 'cta_click', { cta_type: 'request_demo', cta_location: this.getAttribute('data-demo') });
         }
+        if (typeof zE === 'undefined') return;
+        e.preventDefault();
+        zE('webWidget', 'open');
       });
     }
   });

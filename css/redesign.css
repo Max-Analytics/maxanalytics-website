@@ -171,6 +171,21 @@
     text-shadow: none;
   }
 
+  .hero__more{
+    margin: 22px 0 0;
+    margin-left: var(--hero-text-shift);
+    font-size: clamp(16px, 1.3vw, 20px);
+    font-weight: 700;
+  }
+
+  .hero__more a{
+    color: var(--lime);
+    text-decoration: none;
+    border-bottom: 2px solid var(--lime-soft);
+  }
+
+  .hero__more a:hover{ border-bottom-color: var(--lime); }
+
   /* CTA cards */
   .hero__ctas{
     display: grid;
