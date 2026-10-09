@@ -1,0 +1,169 @@
+<!doctype html>
+<!--
+  template.html: one 1200x630 social card matching insights/papers/when-competition-fails-players-og.jpg (charcoal
+  ground, lime chevrons, "MAX" header). scripts/social-cards.mjs opens it in headless Chrome with the card's data,
+  JSON-encoded in the URL hash, and screenshots it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Nunito:wght@600;700;800&display=block" rel="stylesheet">
+<style>
+  :root {
+    --ground: #0e1316;
+    --lime: #c4de3d;
+    --lime-deep: #5d6d1f;
+    --text: rgba(255, 255, 255, 0.96);
+    --muted: rgba(255, 255, 255, 0.86);
+    --grey: #a6aaad;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; background: var(--ground); }
+  .card {
+    position: relative; width: 1200px; height: 630px; overflow: hidden; color: var(--text);
+    font-family: "Nunito", system-ui, sans-serif;
+    background: radial-gradient(900px 520px at 72% 45%, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 70%), var(--ground);
+  }
+  .art { position: absolute; inset: 0 0 0 auto; width: 700px; }
+  .photo { position: absolute; inset: 0; background-repeat: no-repeat; }
+  .art--photo, .art--screen, .art--cutout, .art--figure {
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 34%);
+            mask-image: linear-gradient(to right, transparent 0, #000 34%);
+  }
+  .art img { position: absolute; display: block; }
+  .art--screen img {
+    border-radius: 16px; border: 3px solid rgba(196, 222, 61, 0.75);
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 0 10px rgba(196, 222, 61, 0.12);
+    transform: perspective(1400px) rotateY(-14deg) rotateZ(2deg);
+  }
+  .shade {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right, rgba(14, 19, 22, 0.97) 0, rgba(14, 19, 22, 0.88) 44%, rgba(14, 19, 22, 0) 66%),
+      linear-gradient(to top, rgba(14, 19, 22, 0.85) 0, rgba(14, 19, 22, 0) 32%);
+  }
+  .chevrons { position: absolute; inset: 0; pointer-events: none; }
+  .content {
+    position: absolute; inset: 0; padding: 30px 0 40px 56px; width: 720px;
+    display: flex; flex-direction: column;
+  }
+  /* The paper card's header is the chevrons and "MAX" only: crop the wordmark before "evaluations & analytics". */
+  .logo { height: 76px; width: 149px; overflow: hidden; align-self: flex-start; }
+  .logo img { height: 76px; width: auto; display: block; }
+  .kicker { margin-top: 26px; display: flex; align-items: center; gap: 18px; }
+  .kicker span {
+    color: var(--lime); font: 800 18px/1 "Montserrat", sans-serif; letter-spacing: 0.14em;
+    text-transform: uppercase; white-space: nowrap;
+  }
+  .kicker i { flex: 1; height: 2px; background: rgba(255, 255, 255, 0.35); }
+  .kicker2 {
+    margin-top: 10px; color: var(--grey); font: 800 16px/1 "Montserrat", sans-serif;
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  h1 {
+    margin-top: 22px; font: 900 76px/0.98 "Montserrat", sans-serif; text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+  h1 span { display: block; width: max-content; }
+  h1 .lime { color: var(--lime); }
+  .sub { margin-top: 20px; max-width: 590px; font-weight: 600; font-size: 26px; line-height: 1.28; color: var(--muted); }
+  .foot {
+    margin-top: auto; padding-top: 22px; border-top: 1px solid rgba(255, 255, 255, 0.16);
+    display: flex; align-items: center; gap: 26px;
+  }
+  .foot:empty { display: none; }
+  .stat { display: flex; align-items: center; gap: 14px; }
+  .stat b { color: var(--lime); font: 900 58px/1 "Montserrat", sans-serif; letter-spacing: -0.02em; }
+  .stat small {
+    font: 800 14px/1.3 "Montserrat", sans-serif; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text);
+    white-space: nowrap;
+  }
+  .stat small em { display: block; font-style: normal; color: var(--grey); }
+  .rule { width: 2px; align-self: stretch; background: rgba(255, 255, 255, 0.3); }
+  .chip { display: flex; align-items: center; gap: 10px; font: 800 19px/1 "Nunito", sans-serif; white-space: nowrap; }
+  .chip svg { flex: none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="art" id="art"></div>
+  <div class="shade"></div>
+  <svg class="chevrons" width="1200" height="630" viewBox="0 0 1200 630" aria-hidden="true">
+    <path d="M520 -150 h170 l230 300 -230 300 h-170 l230 -300 z" fill="#c4de3d" opacity="0.10"/>
+    <path d="M930 -70 h96 l150 196 -150 196 h-96 l150 -196 z" fill="#c4de3d" opacity="0.92"/>
+    <path d="M1060 -70 h60 l150 196 -150 196 h-60 l150 -196 z" fill="#5d6d1f" opacity="0.9"/>
+  </svg>
+  <div class="content">
+    <div class="logo"><img src="../../images/logo-colour-white.webp" alt=""></div>
+    <div class="kicker"><span id="kicker"></span><i></i></div>
+    <div class="kicker2" id="kicker2"></div>
+    <h1 id="headline"></h1>
+    <p class="sub" id="sub"></p>
+    <div class="foot" id="foot"></div>
+  </div>
+</div>
+<script>
+  const card = JSON.parse(decodeURIComponent(location.hash.slice(1)));
+  const el = (tag, cls, text) => Object.assign(document.createElement(tag), cls ? { className: cls } : {}, text ? { textContent: text } : {});
+  const CHECK = '<svg width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="13" fill="#c4de3d"/><path d="M7.5 13.5l3.6 3.6 7.4-8" stroke="#0e1316" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+  document.getElementById('kicker').textContent = card.kicker;
+  document.getElementById('kicker2').textContent = card.kicker2 || '';
+  if (!card.kicker2) document.getElementById('kicker2').remove();
+  const h1 = document.getElementById('headline');
+  card.headline.forEach((line, i) => {
+    const span = el('span', (card.lime ?? [card.headline.length - 1]).includes(i) ? 'lime' : '', line);
+    h1.append(span);
+  });
+  document.getElementById('sub').textContent = card.sub;
+
+  const foot = document.getElementById('foot');
+  (card.stats || []).forEach((s, i) => {
+    if (i) foot.append(el('div', 'rule'));
+    const stat = el('div', 'stat');
+    const small = el('small', '', s.label);
+    if (s.label2) small.append(el('em', '', s.label2));
+    stat.append(el('b', '', s.value), small);
+    foot.append(stat);
+  });
+  (card.chips || []).forEach((c) => {
+    const chip = el('div', 'chip');
+    chip.innerHTML = CHECK;
+    chip.append(c);
+    foot.append(chip);
+  });
+
+  const art = document.getElementById('art');
+  const a = card.art;
+  art.classList.add(`art--${a.kind}`);
+  if (a.kind === 'photo') {
+    const photo = el('div', 'photo');
+    Object.assign(photo.style, {
+      backgroundImage: `url("../../${a.src}")`, backgroundSize: a.size || 'cover', backgroundPosition: a.position || 'center',
+      transform: a.flip ? 'scaleX(-1)' : '',
+    });
+    art.append(photo);
+  } else {
+    // Cut-outs and screenshots stand in front of the chevrons, as the player does on the paper card.
+    art.before(document.querySelector('.chevrons'));
+    const img = el('img');
+    img.src = `../../${a.src}`;
+    Object.assign(img.style, a.style || {});
+    art.append(img);
+  }
+
+  // Shrink the headline until its widest line fits the text column.
+  const fit = () => {
+    let size = card.size || 76;
+    h1.style.fontSize = `${size}px`;
+    while (size > 40 && [...h1.children].some((s) => s.scrollWidth > 610)) h1.style.fontSize = `${--size}px`;
+    const content = document.querySelector('.content');
+    while (size > 40 && content.scrollHeight > content.clientHeight) h1.style.fontSize = `${--size}px`;
+    document.body.dataset.ready = '1';
+  };
+  Promise.all([document.fonts.ready, ...[...document.images].map((i) => i.decode().catch(() => console.warn(`Image failed: ${i.src}`)))]).then(fit);
+</script>
+</body>
+</html>
