@@ -14,8 +14,8 @@
     },
     {
       "target": "staging",
-      "public": "dist",
-      "predeploy": ["node \"$PROJECT_DIR/scripts/build.mjs\""],
+      "public": "dist-staging",
+      "predeploy": ["node \"$PROJECT_DIR/scripts/build.mjs\" --staging"],
       "ignore": [
         "**/.*"
       ],

@@ -39,6 +39,7 @@ Pages are written in the repository root, then a small build (`scripts/build.mjs
 
 ```sh
 npm run dev      # build, start the Firebase emulator on dist/, rebuild on every save
+npm run dev:staging  # the same for the staging build (dist-staging/, with the staging/ review pages)
 npm run serve    # build once, then serve (no watching)
 npm run build    # just build dist/
 ```
@@ -163,7 +164,7 @@ This is `firebase deploy --only hosting:production`. The `predeploy` hook in `fi
 npm run deploy:staging
 ```
 
-This builds your working tree, so it shows uncommitted changes too; deploy from the branch you want reviewed. Staging is the `max-website-staging` site in the same Firebase project, mapped in `.firebaserc`. It sends `X-Robots-Tag: noindex` so search engines never index the copy (its canonical links also point at maxanalytics.ca). Anything a reviewer does on staging is real: Google Analytics counts the visit and the Insights sign-up form adds a real Customer.io subscriber.
+This builds your working tree, so it shows uncommitted changes too; deploy from the branch you want reviewed. The staging build (`node scripts/build.mjs --staging`) writes its own folder, `dist-staging/`, and adds the review pages from `staging/`, such as https://max-website-staging.web.app/social-cards-review/ (every share card on one page). Production's `dist/` never holds them, so even a deploy to both targets keeps them off maxanalytics.ca. Staging is the `max-website-staging` site in the same Firebase project, mapped in `.firebaserc`. It sends `X-Robots-Tag: noindex` so search engines never index the copy (its canonical links also point at maxanalytics.ca). Anything a reviewer does on staging is real: Google Analytics counts the visit and the Insights sign-up form adds a real Customer.io subscriber.
 
 **Deploy to a preview channel** (creates a temporary URL for testing):
 
@@ -189,9 +190,10 @@ firebase hosting:channel:delete CHANNEL_NAME --site max-static
 
 | File | Purpose |
 | ---- | ------- |
-| `firebase.json` | Hosting configuration: the `production` and `staging` targets, `dist/` as the public directory, the `predeploy` build and IndexNow hooks, staging's noindex header, and the local emulator port |
+| `firebase.json` | Hosting configuration: the `production` and `staging` targets, their public directories (`dist/`, `dist-staging/`), the `predeploy` build and IndexNow hooks, staging's noindex header, and the local emulator port |
 | `package.json` | `npm run dev`, `serve`, `build`, `deploy:prod` and `deploy:staging` (no dependencies) |
-| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials, writes the sitemap and checks structured data |
+| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/`, `staging/` and config files), fills in the partials, writes the sitemap and checks structured data. `--staging` builds `dist-staging/` with the `staging/` pages added |
+| `staging/` | Review pages for the staging site only, laid out as they are served (`staging/social-cards-review/index.html` → `/social-cards-review/`). The build fails if one shares a path with a site file or lacks `<meta name="robots" content="noindex">`. It doesn't count as using an image |
 | `scripts/indexnow.mjs` | Sends a production deploy's changed pages to IndexNow (run by the `production` target's predeploy and postdeploy hooks) |
 | `f2b7d001fdf70d4f23c61b922d7002ab.txt` | IndexNow key file; public by design |
 | `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |

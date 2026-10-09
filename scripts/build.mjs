@@ -19,9 +19,13 @@
  * structured data (application/ld+json) that isn't valid JSON, and on any image a page, stylesheet or script uses
  * that is over IMAGE_LIMIT_KB; it warns about images that ship but nothing uses. README "Images" has the how-to.
  *
+ * With --staging the build writes dist-staging/ instead (the staging target's public folder) and adds the review
+ * pages in staging/, served at the same paths; production's dist/ never holds them. Each must be noindex.
+ *
  * Usage:  node scripts/build.mjs           build once
  *         node scripts/build.mjs --watch   build, then rebuild whenever a source file changes
  *         node scripts/build.mjs --serve   --watch, plus the Firebase hosting emulator serving dist/
+ * Add --staging to any of these for dist-staging/ (the staging deploy's build; npm run dev:staging serves it).
  */
 import { cpSync, existsSync, readFileSync, readdirSync, rmSync, statSync, watch, writeFileSync } from 'node:fs';
 import { execFileSync, spawn } from 'node:child_process';
@@ -29,10 +33,12 @@ import { basename, dirname, join, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = join(ROOT, 'dist');
+const WITH_STAGING = process.argv.includes('--staging');
+const OUT = join(ROOT, WITH_STAGING ? 'dist-staging' : 'dist');
 const PARTIALS = join(ROOT, 'partials');
+const STAGING = join(ROOT, 'staging');
 // Repo-only files and folders: never copied to dist/. Dotfiles are skipped separately.
-const SKIP = new Set(['dist', 'partials', 'scripts', 'node_modules', 'firebase.json', 'package.json', 'package-lock.json', 'sitemap.xml']);
+const SKIP = new Set(['dist', 'dist-staging', 'partials', 'scripts', 'staging', 'node_modules', 'firebase.json', 'package.json', 'package-lock.json', 'sitemap.xml']);
 const SKIP_EXT = ['.md', '.log'];
 // Served at whatever path was requested, so its links and assets must be root-absolute.
 const ROOT_ABSOLUTE_PAGES = new Set(['404.html']);
@@ -43,11 +49,12 @@ const IMAGE_LIMIT_KB = 300;
 const IMAGE_EXT = /\.(png|jpe?g|jfif|gif|webp|avif)$/i;
 const MARKER = /^([ \t]*)<!-- partial:([a-z0-9-]+)((?:\s+[a-z_]+="[^"]*")*)\s*-->[ \t]*$/gm;
 
+const repoOnlyName = (name) => name.startsWith('.') || SKIP_EXT.some((ext) => name.endsWith(ext));
+
 function shipped(path) {
   const rel = relative(ROOT, path);
   if (!rel) return true;
-  const name = basename(path);
-  if (name.startsWith('.') || SKIP_EXT.some((ext) => name.endsWith(ext))) return false;
+  if (repoOnlyName(basename(path))) return false;
   return !SKIP.has(rel.split(sep)[0]);
 }
 
@@ -60,8 +67,11 @@ function filesMatching(dir, test) {
 }
 const htmlFiles = (dir) => filesMatching(dir, (name) => name.endsWith('.html'));
 
-function checkImages() {
-  const code = filesMatching(OUT, (name) => /\.(html|css|js)$/.test(name)).map((f) => readFileSync(f, 'utf8')).join('\n');
+// Staging review pages don't count as uses, so both builds warn about the same unused images.
+function checkImages(stagingRels) {
+  const code = filesMatching(OUT, (name) => /\.(html|css|js)$/.test(name))
+    .filter((f) => !stagingRels.has(relative(OUT, f).split(sep).join('/')))
+    .map((f) => readFileSync(f, 'utf8')).join('\n');
   const used = (name) => new RegExp(`(?<![\\w.-])${name.replace(/[.]/g, '\\.')}(?![\\w])`).test(code);
   const tooBig = [];
   const unused = [];
@@ -140,6 +150,15 @@ function build() {
     const src = join(ROOT, name);
     if (shipped(src)) cpSync(src, join(OUT, name), { recursive: true, filter: shipped });
   }
+  const stagingRels = new Set();
+  if (WITH_STAGING && existsSync(STAGING)) {
+    const keep = (src) => !repoOnlyName(basename(src));
+    for (const file of filesMatching(STAGING, (name) => !repoOnlyName(name))) {
+      stagingRels.add(relative(STAGING, file).split(sep).join('/'));
+    }
+    // errorOnExist: a staging page may never replace a site file.
+    cpSync(STAGING, OUT, { recursive: true, force: false, errorOnExist: true, filter: keep });
+  }
   let expanded = 0;
   const sitemap = [];
   for (const file of htmlFiles(OUT)) {
@@ -148,12 +167,15 @@ function build() {
     const out = expand(html, rel);
     if (out !== html) { writeFileSync(file, out); expanded++; }
     checkStructuredData(out, rel);
+    if (stagingRels.has(rel) && !/<meta name="robots" content="[^"]*noindex/.test(out)) {
+      throw new Error(`staging/${rel}: review pages must carry <meta name="robots" content="noindex">`);
+    }
     const entry = sitemapEntry(out, rel);
     if (entry) sitemap.push(entry);
   }
   writeSitemap(sitemap);
-  checkImages();
-  console.log(`Built dist/ in ${Date.now() - started} ms (${expanded} page(s) with partials, ${sitemap.length} in the sitemap).`);
+  checkImages(stagingRels);
+  console.log(`Built ${relative(ROOT, OUT)}/ in ${Date.now() - started} ms (${expanded} page(s) with partials, ${sitemap.length} in the sitemap).`);
 }
 
 build();
@@ -163,7 +185,8 @@ if (serve || process.argv.includes('--watch')) {
   let timer;
   console.log('Watching for changes (Ctrl+C to stop)...');
   watch(ROOT, { recursive: true }, (_, name) => {
-    if (!name || !shipped(join(ROOT, name)) && !name.startsWith('partials')) return;
+    const source = WITH_STAGING ? /^(partials|staging)([\\/]|$)/ : /^partials([\\/]|$)/;
+    if (!name || !shipped(join(ROOT, name)) && !source.test(name)) return;
     clearTimeout(timer);
     timer = setTimeout(() => {
       try { build(); } catch (err) { console.error(err.message); }
@@ -172,7 +195,8 @@ if (serve || process.argv.includes('--watch')) {
 }
 
 if (serve) {
-  const emulator = spawn('firebase', ['emulators:start', '--only', 'hosting:production'], { cwd: ROOT, stdio: 'inherit' });
+  const target = WITH_STAGING ? 'hosting:staging' : 'hosting:production';
+  const emulator = spawn('firebase', ['emulators:start', '--only', target], { cwd: ROOT, stdio: 'inherit' });
   emulator.on('error', (err) => { console.error(`Could not start the Firebase emulator: ${err.message}`); process.exit(1); });
   emulator.on('exit', (code) => process.exit(code ?? 0));
   process.on('SIGINT', () => emulator.kill('SIGINT'));
