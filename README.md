@@ -89,6 +89,9 @@ cwebp -q 80 -resize <2x display width> 0 -metadata none input.png -o images/name
 The site is meant to rank for, and be cited by Google AI Overviews and other AI search on, queries like "minor hockey evaluation and tryout software". What keeps that working:
 
 - **Plain links for crawlers.** Many crawlers (ChatGPT, Perplexity, Claude) don't run JavaScript, so the `site-nav` and `site-footer` partials put the menu and footer links in the HTML, and the scripts build the visible menu and footer from them. There is one copy of each link list, in `partials/`.
+- **Every page has** a specific `<title>` (about 60 characters), a `description` (about 160), and a `canonical` link. The duplicate `privacy/`, `privacy-policy/`, `terms/` and `terms-of-service/` pages point their canonical at `privacy.html` / `terms.html`.
+- **Structured data.** `index.html` declares the `Organization` (`@id` `https://maxanalytics.ca/#organization`) and `faqs.html` has `FAQPage`.
+- **Build checks.** The build fails on structured data that isn't valid JSON, an unknown partial, or a partial missing a value.
 
 ## Insights
 
@@ -167,7 +170,7 @@ Both workflows run `node scripts/build.mjs` before deploying. Both deploy the `p
 | ---- | ------- |
 | `firebase.json` | Hosting configuration: the `production` target, `dist/` as the public directory, the `predeploy` build, and the local emulator port |
 | `package.json` | `npm run dev`, `serve`, `build` and `deploy:prod` (no dependencies) |
-| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files) and fills in the partials |
+| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials and checks structured data |
 | `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |
 | `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the `production` hosting target to `max-static` |
 | `.github/workflows/firebase-hosting-merge.yml` | Auto-deploy on push to `master` |

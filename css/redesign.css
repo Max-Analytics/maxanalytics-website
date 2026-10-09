@@ -158,7 +158,19 @@
   
     margin-left: var(--hero-text-shift);
   }
-  
+
+  .hero__kicker{
+    display: block;
+    margin: 0 0 18px;
+    font-size: clamp(14px, 1.1vw, 18px);
+    font-weight: 800;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--lime);
+    text-shadow: none;
+  }
+
   /* CTA cards */
   .hero__ctas{
     display: grid;

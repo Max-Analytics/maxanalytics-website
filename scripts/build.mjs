@@ -14,8 +14,9 @@
  * {{name|fallback}} uses the fallback when nothing supplies the name. A missing name with no fallback, or an
  * unknown partial, fails the build, so no page ships a half-filled snippet.
  *
- * The build fails on any image a page, stylesheet or script uses that is over IMAGE_LIMIT_KB, and warns about
- * images that ship but nothing uses. README "Images" has the how-to.
+ * The build fails on structured data (application/ld+json) that isn't valid JSON, and on any image a page,
+ * stylesheet or script uses that is over IMAGE_LIMIT_KB; it warns about images that ship but nothing uses.
+ * README "Images" has the how-to.
  *
  * Usage:  node scripts/build.mjs           build once
  *         node scripts/build.mjs --watch   build, then rebuild whenever a source file changes
@@ -100,6 +101,12 @@ function expand(html, rel) {
   });
 }
 
+function checkStructuredData(html, rel) {
+  for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try { JSON.parse(json); } catch (err) { throw new Error(`${rel}: invalid structured data (${err.message})`); }
+  }
+}
+
 function build() {
   const started = Date.now();
   rmSync(OUT, { recursive: true, force: true });
@@ -113,6 +120,7 @@ function build() {
     const html = readFileSync(file, 'utf8');
     const out = expand(html, rel);
     if (out !== html) { writeFileSync(file, out); expanded++; }
+    checkStructuredData(out, rel);
   }
   checkImages();
   console.log(`Built dist/ in ${Date.now() - started} ms (${expanded} page(s) with partials).`);
