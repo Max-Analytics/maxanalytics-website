@@ -68,7 +68,7 @@ Anything repeated across pages lives once in `partials/` and is placed with a ma
 | `site-nav` | every page, top of `<body>` | Plain menu links for crawlers that skip JavaScript, and `js/header.js`, which builds the real menu **from those links**. Edit the menu here only. |
 | `site-footer` | every page, end of `<body>` | Footer links for crawlers, and `js/footer.js`, which builds the footer from them. |
 | `head-services` | every page, in `<head>` | Favicon, Google Analytics and the Zendesk widget. |
-| `cta-demo` | the tryout page | The closing "See Max run a tryout" section. Takes `location` (the analytics label), `secondary_href` and `secondary_label`. |
+| `cta-demo` | tryout and comparison pages | The closing "See Max run a tryout" section. Takes `location` (the analytics label), `secondary_href` and `secondary_label`. |
 
 Any link with `data-demo="<label>"` opens the Zendesk widget (its `href` is the fallback when the widget hasn't loaded) and records a `cta_click` with that label; `js/header.js` handles it on every page.
 
@@ -93,6 +93,7 @@ cwebp -q 80 -resize <2x display width> 0 -metadata none input.png -o images/name
 The site is meant to rank for, and be cited by Google AI Overviews and other AI search on, queries like "minor hockey evaluation and tryout software". What keeps that working:
 
 - **The landing page.** `minor-hockey-tryout-software/index.html` (styled by `css/redesign.css` plus `css/tryout-software.css`) answers the query in its first paragraph. It is the hub every blog post and outside listing links to. Its FAQ is repeated as `FAQPage` structured data in the head, so edit both together.
+- **Comparison pages.** `compare/` is the hub, with one page per competitor that shows up for the query (`max-vs-teamgenius/`, `max-vs-skillshark/`, `max-vs-playbook/`). Every competitor claim comes from that vendor's own site and is dated in the page's "Sources and method" section. Competitor cells state only what the vendor publishes; leave out a row rather than write "not described". Re-check them each quarter and before evaluation season, then update the reviewed date and `dateModified`. These pages carry no `FAQPage` markup (Google stopped showing FAQ rich results in May 2026).
 - **Plain links for crawlers.** Many crawlers (ChatGPT, Perplexity, Claude) don't run JavaScript, so the `site-nav` and `site-footer` partials put the menu and footer links in the HTML, and the scripts build the visible menu and footer from them. There is one copy of each link list, in `partials/`.
 - **Every page has** a specific `<title>` (about 60 characters), a `description` (about 160), and a `canonical` link. The duplicate `privacy/`, `privacy-policy/`, `terms/` and `terms-of-service/` pages point their canonical at `privacy.html` / `terms.html`.
 - **Structured data.** `index.html` declares the `Organization` (`@id` `https://maxanalytics.ca/#organization`), the landing page declares the `SoftwareApplication` with pricing, and `faqs.html` has `FAQPage`. Update the prices there when `pricing.html` changes.
