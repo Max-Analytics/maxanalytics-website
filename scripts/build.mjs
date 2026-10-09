@@ -14,6 +14,9 @@
  * {{name|fallback}} uses the fallback when nothing supplies the name. A missing name with no fallback, or an
  * unknown partial, fails the build, so no page ships a half-filled snippet.
  *
+ * The build fails on any image a page, stylesheet or script uses that is over IMAGE_LIMIT_KB, and warns about
+ * images that ship but nothing uses. README "Images" has the how-to.
+ *
  * Usage:  node scripts/build.mjs           build once
  *         node scripts/build.mjs --watch   build, then rebuild whenever a source file changes
  *         node scripts/build.mjs --serve   --watch, plus the Firebase hosting emulator serving dist/
@@ -31,6 +34,8 @@ const SKIP = new Set(['dist', 'partials', 'scripts', 'node_modules', 'firebase.j
 const SKIP_EXT = ['.md', '.log'];
 // Served at whatever path was requested, so its links and assets must be root-absolute.
 const ROOT_ABSOLUTE_PAGES = new Set(['404.html']);
+const IMAGE_LIMIT_KB = 300;
+const IMAGE_EXT = /\.(png|jpe?g|jfif|gif|webp|avif)$/i;
 const MARKER = /^([ \t]*)<!-- partial:([a-z0-9-]+)((?:\s+[a-z_]+="[^"]*")*)\s*-->[ \t]*$/gm;
 
 function shipped(path) {
@@ -49,6 +54,23 @@ function filesMatching(dir, test) {
   });
 }
 const htmlFiles = (dir) => filesMatching(dir, (name) => name.endsWith('.html'));
+
+function checkImages() {
+  const code = filesMatching(OUT, (name) => /\.(html|css|js)$/.test(name)).map((f) => readFileSync(f, 'utf8')).join('\n');
+  const used = (name) => new RegExp(`(?<![\\w.-])${name.replace(/[.]/g, '\\.')}(?![\\w])`).test(code);
+  const tooBig = [];
+  const unused = [];
+  for (const file of filesMatching(OUT, (name) => IMAGE_EXT.test(name))) {
+    const rel = relative(OUT, file).split(sep).join('/');
+    const kb = Math.round(statSync(file).size / 1024);
+    if (!used(basename(file))) unused.push(rel);
+    else if (kb > IMAGE_LIMIT_KB) tooBig.push(`${rel} (${kb} KB)`);
+  }
+  if (unused.length) console.warn(`Unused images still deployed (delete them if nothing needs them):\n  ${unused.join('\n  ')}`);
+  if (tooBig.length) {
+    throw new Error(`Images over ${IMAGE_LIMIT_KB} KB (see README "Images"):\n  ${tooBig.join('\n  ')}`);
+  }
+}
 
 function pageValues(html, rel) {
   const pick = (re) => (html.match(re) || [])[1];
@@ -92,6 +114,7 @@ function build() {
     const out = expand(html, rel);
     if (out !== html) { writeFileSync(file, out); expanded++; }
   }
+  checkImages();
   console.log(`Built dist/ in ${Date.now() - started} ms (${expanded} page(s) with partials).`);
 }
 

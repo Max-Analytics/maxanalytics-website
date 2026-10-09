@@ -47,7 +47,7 @@
     '<header class="site-nav">' +
       '<div class="site-nav__inner">' +
         '<a class="site-nav__brand" href="' + (isHome ? '#home' : base + 'index.html') + '" aria-label="Max Analytics Home">' +
-          '<img src="' + base + 'assets/maxlogo.png" alt="Max Analytics" class="site-nav__logo" />' +
+          '<img src="' + base + 'assets/maxlogo.webp" alt="Max Analytics" class="site-nav__logo" />' +
         '</a>' +
         '<button class="site-nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav-drawer">' +
           '<span class="site-nav__hamburger">' +

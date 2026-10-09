@@ -70,6 +70,20 @@ Anything repeated across pages lives once in `partials/` and is placed with a ma
 
 When the same markup turns up on a second page, make it a partial rather than copying it.
 
+## Images
+
+Pages use WebP images sized to about twice their on-screen size, which keeps the homepage near 0.8 MB of images instead of 10 MB. The build fails if any image a page, stylesheet or script uses is over 300 KB, and it warns about images that ship but nothing uses.
+
+To add or replace an image:
+
+```sh
+cwebp -q 80 -resize <2x display width> 0 -metadata none input.png -o images/name.webp   # brew install webp
+```
+
+- Photos and illustrations: quality 75–80. Background textures: 60. Logos: 85–90, at twice their display width (a 45 px-tall logo is exported 90 px tall).
+- Keep transparency: `cwebp` preserves it from PNG input.
+- Don't keep the full-size original in the repo; git history has the ones replaced in October 2026.
+
 ## Search and AI visibility
 
 The site is meant to rank for, and be cited by Google AI Overviews and other AI search on, queries like "minor hockey evaluation and tryout software". What keeps that working:

@@ -40,8 +40,8 @@
     --cta-title-size: clamp(18px, 1.9vw, 24px);
   
     /* CTA placeholder image URLs */
-    --cta-bg-1: url("../assets/cta-teammates.png");
-    --cta-bg-2: url("../assets/mdc-transparent-bg.png");
+    --cta-bg-1: url("../assets/cta-teammates.webp");
+    --cta-bg-2: url("../assets/mdc-transparent-bg.webp");
   
     /* Per-CTA background control defaults */
     --cta-1-bg-size: 70%;
@@ -68,7 +68,7 @@
     overflow-x: clip;                  /* prevent Zendesk widget from widening viewport */
     background:
       radial-gradient(1200px 600px at 60% 40%, rgba(255,255,255,0.05), rgba(255,255,255,0) 60%),
-      url("../assets/texture-med-5.png");
+      url("../assets/texture-med-5.webp");
     background-position: center;
     background-size: cover;
     background-attachment: scroll;
@@ -99,7 +99,7 @@
     position: absolute;
     inset: 0;
   
-    background-image: url("../assets/hero-skater-halo-2.png");
+    background-image: url("../assets/hero-skater-halo-2.webp");
     background-repeat: no-repeat;
     background-size: 55%;
     background-position: -10% 40%;

@@ -24,3 +24,13 @@ Shared markup (menu, footer, head snippets) lives once in `partials/` and is pla
 - Preview with `npm run dev`, never the raw files or a static server on the repo root.
 
 Details: README "Build and partials".
+
+## Delete unused assets and files
+
+When a change leaves an image, stylesheet, script, page or other file that nothing uses, delete it in the same change. Never keep a superseded original, a `.old` copy or an unused variant "just in case"; git history keeps it.
+
+**Why:** everything in the repo root ships to `dist/` and is deployed, so a dead file costs deploy size, can be crawled, and makes the next person wonder whether it matters.
+
+**How to apply:**
+- Before calling a change done, check that every file it replaced or stopped referencing is gone. `npm run build` warns "Unused images still deployed"; treat that warning as a to-do, not noise.
+- List the deleted files in the change summary so the reviewer sees them.

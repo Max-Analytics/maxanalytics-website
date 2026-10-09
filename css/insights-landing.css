@@ -29,7 +29,7 @@ html {
   overflow-x: clip;
   background:
     radial-gradient(1200px 600px at 60% 40%, rgba(255,255,255,0.05), rgba(255,255,255,0) 60%),
-    url("../assets/texture-med-5.png");
+    url("../assets/texture-med-5.webp");
   background-position: center;
   background-size: cover;
   background-color: var(--navy-900);

@@ -5,7 +5,7 @@
   var base = src.replace(/js\/footer\.js.*$/, '');
 
   var isDark = !!document.querySelector('link[href*="redesign.css"], link[href*="insights-landing.css"]');
-  var logo = isDark ? 'logo-colour-white.png' : 'logo-colour.png';
+  var logo = isDark ? 'logo-colour-white.webp' : 'logo-colour.webp';
 
   // Footer links come from the crawler copy that partials/site-footer.html puts in #site-footer.
   var el = document.getElementById('site-footer');
