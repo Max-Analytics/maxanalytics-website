@@ -1,0 +1,14 @@
+{
+  "name": "maxanalytics-website",
+  "private": true,
+  "description": "Static marketing site for Max Analytics. Source pages build into dist/, which Firebase serves.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "node scripts/build.mjs --serve",
+    "serve": "node scripts/build.mjs && firebase emulators:start --only hosting:production",
+    "deploy:prod": "firebase deploy --only hosting:production"
+  }
+}

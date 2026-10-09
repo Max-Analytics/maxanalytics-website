@@ -4,3 +4,7 @@
 .firebase/*.cache
 .DS_Store
 firebase-debug.log*
+
+# Build output (npm run build)
+dist/
+node_modules/

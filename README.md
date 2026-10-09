@@ -2,7 +2,7 @@
 
 Static HTML site for MaxAnalytics, deployed to [Firebase Hosting](https://firebase.google.com/docs/hosting).
 
-There is no build step — HTML, CSS, and JS files are served directly from the repository root.
+Pages are written in the repository root, then a small build (`scripts/build.mjs`, Node 20, no dependencies) copies the site into `dist/` and fills in the shared snippets from `partials/`. Firebase serves and deploys `dist/`, never the raw pages. See [Build and partials](#build-and-partials).
 
 ## Prerequisites
 
@@ -28,27 +28,45 @@ There is no build step — HTML, CSS, and JS files are served directly from the 
 
 ## Firebase Project Details
 
-| Setting    | Value          |
-| ---------- | -------------- |
-| Project ID | `maxanalytics` |
-| Site ID    | `max-static`   |
-| Public dir | `.` (repo root) |
+| Setting         | Value |
+| --------------- | ----- |
+| Project ID      | `maxanalytics` |
+| Production site | `max-static` (target `production`), serving maxanalytics.ca |
+| Public dir      | `dist/` (built by `scripts/build.mjs`) |
 
 ## Run Locally
 
 ```sh
-firebase emulators:start --only hosting
+npm run dev      # build, start the Firebase emulator on dist/, rebuild on every save
+npm run serve    # build once, then serve (no watching)
+npm run build    # just build dist/
 ```
 
-Then open http://127.0.0.1:8765 (port pinned in `firebase.json`; macOS AirPlay Receiver holds 5000). Stop with `Ctrl+C`.
+Then open http://127.0.0.1:8765 (port pinned in `firebase.json`; macOS AirPlay Receiver holds 5000). Stop with `Ctrl+C`. If the port is taken, an old emulator is still running: stop it, since it may be serving an outdated config.
 
-Use the emulator rather than a generic static server (`python3 -m http.server`, `npx serve`, …) — it reproduces production routing:
+Never preview the raw pages (opening the files, or a static server on the repo root): they hold partial markers, not the head snippets. Use the emulator, which serves `dist/` and reproduces production routing:
 
 - Any unknown path, at any depth, returns `404.html` with a 404 status.
 - A folder without an `index.html` (e.g. `/insights/papers/`, `/css/`) is a 404 — directory contents are never listed.
 - A folder URL without its trailing slash redirects to the slash form.
 
 Because `404.html` is served at whatever path was requested, every asset and link in it is root-absolute (`/css/...`, `/js/...`).
+
+## Build and partials
+
+Anything repeated across pages lives once in `partials/` and is placed with a marker on its own line:
+
+```html
+<!-- partial:head-services -->
+```
+
+`npm run build` (and every deploy) replaces each marker in the `dist/` copy; the source page keeps the marker. Values in a partial come from the marker first, then from the page (`{{title}}`, `{{description}}` and `{{url}}` are read from its `<title>`, meta description and canonical link; `{{root}}` is the path back to the site root). `{{name|fallback}}` supplies a default. An unknown partial or a missing value fails the build.
+
+| Partial | Used on | What it holds |
+| --- | --- | --- |
+| `head-services` | every page, in `<head>` | Favicon, Google Analytics and the Zendesk widget. |
+
+When the same markup turns up on a second page, make it a partial rather than copying it.
 
 ## Insights
 
@@ -84,13 +102,15 @@ Bot defence today is client-side only: a hidden honeypot field (`company_website
 **Deploy to production:**
 
 ```sh
-firebase deploy --only hosting:max-static
+npm run deploy:prod
 ```
+
+This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first, so a deploy never ships stale or raw pages.
 
 **Deploy to a preview channel** (creates a temporary URL for testing):
 
 ```sh
-firebase hosting:channel:deploy CHANNEL_NAME --only max-static
+npm run build && firebase hosting:channel:deploy CHANNEL_NAME --only production
 ```
 
 Replace `CHANNEL_NAME` with any label (e.g. `feature-xyz`). Firebase returns a preview URL you can share.
@@ -117,13 +137,16 @@ GitHub Actions handles deployment automatically:
 - **On pull request** — a preview channel deploy is created and the preview URL is posted as a PR comment.
   See `.github/workflows/firebase-hosting-pull-request.yml`.
 
-Both workflows use the `FIREBASE_SERVICE_ACCOUNT_MAXANALYTICS` repository secret for authentication.
+Both workflows run `node scripts/build.mjs` before deploying. Both deploy the `production` target and use the `FIREBASE_SERVICE_ACCOUNT_MAXANALYTICS` repository secret for authentication.
 
 ## Key Config Files
 
 | File | Purpose |
 | ---- | ------- |
-| `firebase.json` | Hosting configuration (site ID, public directory, ignore patterns — dotfiles and `*.md` never deploy) and the local emulator port |
-| `.firebaserc` | Maps the `default` project alias to `maxanalytics` |
+| `firebase.json` | Hosting configuration: the `production` target, `dist/` as the public directory, the `predeploy` build, and the local emulator port |
+| `package.json` | `npm run dev`, `serve`, `build` and `deploy:prod` (no dependencies) |
+| `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files) and fills in the partials |
+| `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |
+| `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the `production` hosting target to `max-static` |
 | `.github/workflows/firebase-hosting-merge.yml` | Auto-deploy on push to `master` |
 | `.github/workflows/firebase-hosting-pull-request.yml` | Preview deploy on PRs |

@@ -1,15 +1,14 @@
 {
-  "hosting": {
-    "site": "max-static",
-    "public": ".",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/*.md",
-      "**/*.log",
-      "**/node_modules/**"
-    ]
-  },
+  "hosting": [
+    {
+      "target": "production",
+      "public": "dist",
+      "predeploy": ["node \"$PROJECT_DIR/scripts/build.mjs\""],
+      "ignore": [
+        "**/.*"
+      ]
+    }
+  ],
   "emulators": {
     "hosting": {
       "port": 8765

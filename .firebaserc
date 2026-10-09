@@ -1,5 +1,12 @@
 {
   "projects": {
     "default": "maxanalytics"
+  },
+  "targets": {
+    "maxanalytics": {
+      "hosting": {
+        "production": ["max-static"]
+      }
+    }
   }
 }
