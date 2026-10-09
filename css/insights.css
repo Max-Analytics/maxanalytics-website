@@ -212,6 +212,9 @@ body.insight {
     font-weight: 700;
     color: var(--green);
   }
+  /* A wide multi-panel chart swaps to a stacked version (<picture>) that fits instead of swiping */
+  .figure--stacked .figure__scroll { overflow-x: visible; }
+  .figure--stacked .figure__img { width: 100%; max-width: 420px; margin: 0 auto; }
 }
 
 /* ---------- Sources and closing note ---------- */

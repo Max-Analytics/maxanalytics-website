@@ -52,7 +52,7 @@ Because `404.html` is served at whatever path was requested, every asset and lin
 
 ## Insights
 
-`/insights/` is the landing page for the white-paper series (`insights/index.html`, styled by `css/insights-landing.css`). Each paper lives in `insights/papers/` as `<slug>.html` (styled by the shared `css/insights.css`) and `<slug>.pdf`, with any figures named `<slug>-figure-<n>.svg`. A paper has two lime **Subscribe** boxes (below the subtitle and after the closing note), each with a **Download PDF** button that sets `download="<Paper Title> - Max Analytics.pdf"` so the file saves under the paper's name. The **Insights** nav link points at the landing page.
+`/insights/` is the landing page for the white-paper series (`insights/index.html`, styled by `css/insights-landing.css`). Each paper lives in `insights/papers/` as `<slug>.html` (styled by the shared `css/insights.css`) and `<slug>.pdf`, with any figures named `<slug>-figure-<n>.svg`. Figures are SVG (the content team's vector charts stay sharp when zoomed or printed) and swipe on phones; a chart too wide to swipe gets a `<slug>-figure-<n>-stacked.svg` that `figure--stacked` and a `<picture>` show up to 600 px instead, as in Paper 2's Figure 1. A paper has one lime **Subscribe** box after the closing note, with a **Download PDF** button that sets `download="<Paper Title> - Max Analytics.pdf"` so the file saves under the paper's name. The **Insights** nav link points at the landing page.
 
 To publish a paper the landing page lists as coming soon:
 
