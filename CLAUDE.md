@@ -16,7 +16,7 @@ No comment may span more than **2 lines**. The single exception is a **file-leve
 
 ## Pages build into dist/: edit partials, preview the build
 
-Shared markup (head snippets) lives once in `partials/` and is placed by `<!-- partial:name -->` markers. `npm run build` expands them into `dist/`, which Firebase serves and deploys.
+Shared markup (menu, footer, head snippets) lives once in `partials/` and is placed by `<!-- partial:name -->` markers. `npm run build` expands them into `dist/`, which Firebase serves and deploys.
 
 **How to apply:**
 - Never paste a partial's markup into a page; add a marker. When markup repeats on a second page, make it a partial.

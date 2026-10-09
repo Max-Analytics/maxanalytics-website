@@ -15,19 +15,16 @@
   // Only the root index is home; a folder page like /feedback/ also resolves to index.html.
   var isHome = base === '' && page === 'index.html';
 
-  /* ---- Build link list ---- */
-  var links = [
-    { label: 'Home',       href: isHome ? '#home'     : base + 'index.html',               page: 'index.html' },
-    { label: 'Benefits',   href: base + 'benefits.html',                                     page: 'benefits.html' },
-    { label: 'Process',    href: base + 'process.html',                                      page: 'process.html'  },
-    { label: 'Pricing',    href: base + 'pricing.html',                                      page: 'pricing.html' },
-    { label: 'FAQs',       href: base + 'faqs.html',                                         page: 'faqs.html' },
-    { label: 'Evaluators', href: base + 'evaluators.html',                                   page: 'evaluators.html' },
-    { label: 'Insights',   href: base + 'insights/',                                         page: null },
-    { label: 'Contact',    href: base + 'contact.html',                                      page: 'contact.html' },
-    { label: 'About',      href: base + 'about.html',                                        page: 'about.html' },
-    { label: 'Help Centre', href: base + 'support-help-centre/',                              page: null }
-  ];
+  /* ---- Link list: read from the crawler nav that partials/site-nav.html puts in #site-nav ---- */
+  var el = document.getElementById('site-nav');
+  var anchors = el ? el.querySelectorAll('a') : [];
+  var links = [];
+  for (var a = 0; a < anchors.length; a++) {
+    var href = anchors[a].getAttribute('href');
+    var label = anchors[a].textContent;
+    var linkPage = href === '/' ? 'index.html' : (href.split('/').pop() || null);
+    links.push({ label: label, href: isHome && linkPage === 'index.html' ? '#home' : href, page: linkPage });
+  }
 
   /* ---- Build links HTML ---- */
   var linksHtml = '';
@@ -74,7 +71,6 @@
     '</header>';
 
   /* ---- Inject into DOM ---- */
-  var el = document.getElementById('site-nav');
   if (el) {
     el.outerHTML = html;
   } else {

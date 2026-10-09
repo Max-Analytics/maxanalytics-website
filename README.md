@@ -44,7 +44,7 @@ npm run build    # just build dist/
 
 Then open http://127.0.0.1:8765 (port pinned in `firebase.json`; macOS AirPlay Receiver holds 5000). Stop with `Ctrl+C`. If the port is taken, an old emulator is still running: stop it, since it may be serving an outdated config.
 
-Never preview the raw pages (opening the files, or a static server on the repo root): they hold partial markers, not the head snippets. Use the emulator, which serves `dist/` and reproduces production routing:
+Never preview the raw pages (opening the files, or a static server on the repo root): they hold partial markers, not the menu, footer or head snippets. Use the emulator, which serves `dist/` and reproduces production routing:
 
 - Any unknown path, at any depth, returns `404.html` with a 404 status.
 - A folder without an `index.html` (e.g. `/insights/papers/`, `/css/`) is a 404 — directory contents are never listed.
@@ -57,16 +57,24 @@ Because `404.html` is served at whatever path was requested, every asset and lin
 Anything repeated across pages lives once in `partials/` and is placed with a marker on its own line:
 
 ```html
-<!-- partial:head-services -->
+<!-- partial:site-nav -->
 ```
 
 `npm run build` (and every deploy) replaces each marker in the `dist/` copy; the source page keeps the marker. Values in a partial come from the marker first, then from the page (`{{title}}`, `{{description}}` and `{{url}}` are read from its `<title>`, meta description and canonical link; `{{root}}` is the path back to the site root). `{{name|fallback}}` supplies a default. An unknown partial or a missing value fails the build.
 
 | Partial | Used on | What it holds |
 | --- | --- | --- |
+| `site-nav` | every page, top of `<body>` | Plain menu links for crawlers that skip JavaScript, and `js/header.js`, which builds the real menu **from those links**. Edit the menu here only. |
+| `site-footer` | every page, end of `<body>` | Footer links for crawlers, and `js/footer.js`, which builds the footer from them. |
 | `head-services` | every page, in `<head>` | Favicon, Google Analytics and the Zendesk widget. |
 
 When the same markup turns up on a second page, make it a partial rather than copying it.
+
+## Search and AI visibility
+
+The site is meant to rank for, and be cited by Google AI Overviews and other AI search on, queries like "minor hockey evaluation and tryout software". What keeps that working:
+
+- **Plain links for crawlers.** Many crawlers (ChatGPT, Perplexity, Claude) don't run JavaScript, so the `site-nav` and `site-footer` partials put the menu and footer links in the HTML, and the scripts build the visible menu and footer from them. There is one copy of each link list, in `partials/`.
 
 ## Insights
 

@@ -7,17 +7,26 @@
   var isDark = !!document.querySelector('link[href*="redesign.css"], link[href*="insights-landing.css"]');
   var logo = isDark ? 'logo-colour-white.png' : 'logo-colour.png';
 
+  // Footer links come from the crawler copy that partials/site-footer.html puts in #site-footer.
+  var el = document.getElementById('site-footer');
+  var anchors = el ? el.querySelectorAll('a') : [];
+  var linksHtml = '';
+  for (var i = 0; i < anchors.length; i++) {
+    linksHtml += (i ? ' | ' : '') + '<a href="' + anchors[i].getAttribute('href') + '">' +
+      anchors[i].textContent.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</a>';
+  }
+
   var html =
     '<footer class="site-footer' + (isDark ? ' site-footer--dark' : '') + '">' +
       '<div class="site-footer__inner">' +
         '<img src="' + base + 'images/' + logo + '" class="site-footer__logo" alt="Max Evaluations & Analytics">' +
+        (linksHtml ? '<p class="site-footer__links">' + linksHtml + '</p>' : '') +
         '<p>&copy; ' + new Date().getFullYear() + ' Max Evaluations &amp; Analytics | ' +
           '<a href="' + base + 'privacy.html">Privacy Policy</a> | ' +
           '<a href="' + base + 'terms.html">Terms of Service</a></p>' +
       '</div>' +
     '</footer>';
 
-  var el = document.getElementById('site-footer');
   if (el) { el.outerHTML = html; }
   else { document.body.insertAdjacentHTML('beforeend', html); }
 })();

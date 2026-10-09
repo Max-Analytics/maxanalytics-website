@@ -16,6 +16,7 @@
   margin: 0 0 12px;
 }
 .site-footer p { margin: 0; }
+.site-footer .site-footer__links { margin: 0 0 8px; }
 .site-footer a { color: #637282; text-decoration: none; }
 .site-footer a:hover { color: #33475c; text-decoration: underline; }
 
