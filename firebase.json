@@ -3,7 +3,11 @@
     {
       "target": "production",
       "public": "dist",
-      "predeploy": ["node \"$PROJECT_DIR/scripts/build.mjs\""],
+      "predeploy": [
+        "node \"$PROJECT_DIR/scripts/build.mjs\"",
+        "node \"$PROJECT_DIR/scripts/indexnow.mjs\" --snapshot"
+      ],
+      "postdeploy": ["node \"$PROJECT_DIR/scripts/indexnow.mjs\""],
       "ignore": [
         "**/.*"
       ]

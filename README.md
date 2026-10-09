@@ -114,6 +114,7 @@ The site is meant to rank for, and be cited by Google AI Overviews and other AI 
 - **Every page has** a specific `<title>` (about 60 characters), a `description` (about 160), and a `canonical` link. The duplicate `privacy/`, `privacy-policy/`, `terms/` and `terms-of-service/` pages point their canonical at `privacy.html` / `terms.html`.
 - **Structured data.** `index.html` declares the `Organization` (`@id` `https://maxanalytics.ca/#organization`), the landing page declares the `SoftwareApplication` with pricing, and `faqs.html` has `FAQPage`. Update the prices there when `pricing.html` changes.
 - **Sitemap, generated.** The build writes `dist/sitemap.xml`; there is no hand-kept sitemap. A page is listed when its canonical link points at itself and it isn't `noindex`, dated by the last commit that changed its source file. To keep a page out, mark it `noindex` or point its canonical elsewhere (the family feedback form is excluded in `scripts/build.mjs` until it gets `noindex`). `robots.txt` points at the sitemap. Submit it once in Google Search Console and Bing Webmaster Tools; they reread it themselves after that.
+- **IndexNow, every production deploy.** `npm run deploy:prod` runs `scripts/indexnow.mjs` twice through Firebase hooks: before deploying it saves the live sitemap, and after a successful deploy it sends IndexNow (Bing, which feeds ChatGPT search and Copilot, plus Yandex, Seznam and Naver) every page that is new or whose `lastmod` changed, so they're recrawled within hours. Shared partials don't count as changes, and a page changed twice in one day is sent only on that day's first deploy. A failed notification is a warning and never fails the deploy. `<key>.txt` in the site root is the public key IndexNow checks; keep it and the `KEY` in the script in step. Preview what would be sent with `npm run build && node scripts/indexnow.mjs --snapshot && node scripts/indexnow.mjs --dry-run`. Google doesn't take IndexNow and relies on the sitemap.
 - **Build checks.** The build fails on structured data that isn't valid JSON, an unknown partial, or a partial missing a value.
 - **Social preview.** Every shareable page has its own 1200 × 630 card in `assets/social/`, set by `image` and `image_alt` on its `social-meta` marker; a page without one falls back to the home card. The Insights papers keep the card that ships with each paper. See "Social cards" below.
 
@@ -188,8 +189,10 @@ firebase hosting:channel:delete CHANNEL_NAME --site max-static
 
 | File | Purpose |
 | ---- | ------- |
-| `firebase.json` | Hosting configuration: the `production` and `staging` targets, `dist/` as the public directory, the `predeploy` build, staging's noindex header, and the local emulator port |
+| `firebase.json` | Hosting configuration: the `production` and `staging` targets, `dist/` as the public directory, the `predeploy` build and IndexNow hooks, staging's noindex header, and the local emulator port |
 | `package.json` | `npm run dev`, `serve`, `build`, `deploy:prod` and `deploy:staging` (no dependencies) |
 | `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials, writes the sitemap and checks structured data |
+| `scripts/indexnow.mjs` | Sends a production deploy's changed pages to IndexNow (run by the `production` target's predeploy and postdeploy hooks) |
+| `f2b7d001fdf70d4f23c61b922d7002ab.txt` | IndexNow key file; public by design |
 | `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |
 | `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the hosting targets to sites (`production` → `max-static`, `staging` → `max-website-staging`) |
