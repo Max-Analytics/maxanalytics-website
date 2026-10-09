@@ -130,7 +130,7 @@ Bot defence today is client-side only: a hidden honeypot field (`company_website
 npm run deploy:prod
 ```
 
-This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first, so a deploy never ships stale or raw pages.
+This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first, so a deploy never ships stale or raw pages. Deploys are manual; there is no CI deploy. Deploy from an up-to-date `master` with a clean working tree, since the build ships whatever is on disk.
 
 **Deploy to a preview channel** (creates a temporary URL for testing):
 
@@ -152,18 +152,6 @@ firebase hosting:channel:list --site max-static
 firebase hosting:channel:delete CHANNEL_NAME --site max-static
 ```
 
-## CI/CD
-
-GitHub Actions handles deployment automatically:
-
-- **On merge to `master`** — the site is deployed to the live production channel.
-  See `.github/workflows/firebase-hosting-merge.yml`.
-
-- **On pull request** — a preview channel deploy is created and the preview URL is posted as a PR comment.
-  See `.github/workflows/firebase-hosting-pull-request.yml`.
-
-Both workflows run `node scripts/build.mjs` before deploying. Both deploy the `production` target and use the `FIREBASE_SERVICE_ACCOUNT_MAXANALYTICS` repository secret for authentication.
-
 ## Key Config Files
 
 | File | Purpose |
@@ -173,5 +161,3 @@ Both workflows run `node scripts/build.mjs` before deploying. Both deploy the `p
 | `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials and checks structured data |
 | `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |
 | `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the `production` hosting target to `max-static` |
-| `.github/workflows/firebase-hosting-merge.yml` | Auto-deploy on push to `master` |
-| `.github/workflows/firebase-hosting-pull-request.yml` | Preview deploy on PRs |
