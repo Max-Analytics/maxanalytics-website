@@ -9,6 +9,7 @@
     "build": "node scripts/build.mjs",
     "dev": "node scripts/build.mjs --serve",
     "serve": "node scripts/build.mjs && firebase emulators:start --only hosting:production",
-    "deploy:prod": "firebase deploy --only hosting:production"
+    "deploy:prod": "firebase deploy --only hosting:production",
+    "deploy:staging": "firebase deploy --only hosting:staging"
   }
 }

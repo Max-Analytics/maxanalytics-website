@@ -32,6 +32,7 @@ Pages are written in the repository root, then a small build (`scripts/build.mjs
 | --------------- | ----- |
 | Project ID      | `maxanalytics` |
 | Production site | `max-static` (target `production`), serving maxanalytics.ca |
+| Staging site    | `max-website-staging` (target `staging`), https://max-website-staging.web.app |
 | Public dir      | `dist/` (built by `scripts/build.mjs`) |
 
 ## Run Locally
@@ -153,7 +154,15 @@ Bot defence today is client-side only: a hidden honeypot field (`company_website
 npm run deploy:prod
 ```
 
-This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first (including the sitemap), so a deploy never ships stale or raw pages. Deploys are manual; there is no CI deploy. Deploy from an up-to-date `master` with a clean working tree, since the build ships whatever is on disk and dates the sitemap from git history.
+This is `firebase deploy --only hosting:production`. The `predeploy` hook in `firebase.json` rebuilds `dist/` first (including the sitemap), so a deploy never ships stale or raw pages. Deploys are manual; there is no CI deploy. Deploy from an up-to-date `master` with a clean working tree, since the build ships whatever is on disk and dates the sitemap from git history. Always name the target: a bare `firebase deploy` deploys to production **and** staging.
+
+**Deploy to staging** (https://max-website-staging.web.app, a permanent URL for reviewing a version before it goes live):
+
+```sh
+npm run deploy:staging
+```
+
+This builds your working tree, so it shows uncommitted changes too; deploy from the branch you want reviewed. Staging is the `max-website-staging` site in the same Firebase project, mapped in `.firebaserc`. It sends `X-Robots-Tag: noindex` so search engines never index the copy (its canonical links also point at maxanalytics.ca). Anything a reviewer does on staging is real: Google Analytics counts the visit and the Insights sign-up form adds a real Customer.io subscriber.
 
 **Deploy to a preview channel** (creates a temporary URL for testing):
 
@@ -179,8 +188,8 @@ firebase hosting:channel:delete CHANNEL_NAME --site max-static
 
 | File | Purpose |
 | ---- | ------- |
-| `firebase.json` | Hosting configuration: the `production` target, `dist/` as the public directory, the `predeploy` build, and the local emulator port |
-| `package.json` | `npm run dev`, `serve`, `build` and `deploy:prod` (no dependencies) |
+| `firebase.json` | Hosting configuration: the `production` and `staging` targets, `dist/` as the public directory, the `predeploy` build, staging's noindex header, and the local emulator port |
+| `package.json` | `npm run dev`, `serve`, `build`, `deploy:prod` and `deploy:staging` (no dependencies) |
 | `scripts/build.mjs` | Builds `dist/`: copies the site (skipping dotfiles, `*.md`, `*.log`, `partials/`, `scripts/` and config files), fills in the partials, writes the sitemap and checks structured data |
 | `partials/` | Shared snippets placed by `<!-- partial:name -->` markers |
-| `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the `production` hosting target to `max-static` |
+| `.firebaserc` | Maps the `default` project alias to `maxanalytics`, and the hosting targets to sites (`production` → `max-static`, `staging` → `max-website-staging`) |

@@ -5,7 +5,8 @@
   "targets": {
     "maxanalytics": {
       "hosting": {
-        "production": ["max-static"]
+        "production": ["max-static"],
+        "staging": ["max-website-staging"]
       }
     }
   }

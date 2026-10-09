@@ -7,6 +7,20 @@
       "ignore": [
         "**/.*"
       ]
+    },
+    {
+      "target": "staging",
+      "public": "dist",
+      "predeploy": ["node \"$PROJECT_DIR/scripts/build.mjs\""],
+      "ignore": [
+        "**/.*"
+      ],
+      "headers": [
+        {
+          "source": "**",
+          "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+        }
+      ]
     }
   ],
   "emulators": {
