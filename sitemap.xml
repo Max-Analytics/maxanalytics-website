@@ -32,25 +32,31 @@
     </url>
     <url>
         <loc>https://maxanalytics.ca/insights/</loc>
-        <lastmod>2026-10-09</lastmod>
+        <lastmod>2026-10-16</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://maxanalytics.ca/insights/papers/when-competition-fails-players.html</loc>
-        <lastmod>2026-10-09</lastmod>
+        <lastmod>2026-10-16</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://maxanalytics.ca/insights/papers/the-competitive-gap-problem.html</loc>
-        <lastmod>2026-10-09</lastmod>
+        <lastmod>2026-10-16</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.7</priority>
+    </url>
+    <url>
+        <loc>https://maxanalytics.ca/insights/papers/designing-competition-that-develops-players.html</loc>
+        <lastmod>2026-10-16</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
         <loc>https://maxanalytics.ca/insights/subscribe/</loc>
-        <lastmod>2026-10-09</lastmod>
+        <lastmod>2026-10-16</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
